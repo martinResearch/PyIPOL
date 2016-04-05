@@ -13,6 +13,8 @@ import runpy
 __version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 
 import download_ipol
+import glob
+files_to_copy= glob.glob("/cousrces/*")
 
 sources = ['ipol/_ipol.pyx','ipol/csources/lsd_1.6/lsd.c','ipol/csources/classic_edge_detectors_1.0/classic_edge_detectors.c']
 extensions = Extension('ipol._ipol',sources, extra_compile_args=['-std=c99'])               
@@ -24,8 +26,7 @@ version= __version_str__,
 packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
-include_package_data = True,
-package_data = {'ipol':['*.txt', '*.rst','*.png','*.jpg','*.bmp','csources/lsd_1.6/*.pgm']},
+package_data = {'ipol':files_to_copy},
 )
 
 #from distutils import sysconfig
