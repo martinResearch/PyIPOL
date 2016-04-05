@@ -6,7 +6,13 @@ code from *Image Processing On Line* [IPOL](http://www.ipol.im/)
  
 # Installation
 
-in order to compile locally run in the command line:
+using pip
+
+	pip install git+git://github.com/martinResearch/PyIPOL.git
+
+
+manually 
+	download https://github.com/pmneila/PyMaxflow/archive/master.zip
 	python setup.py build_ext --inplace
 
 
