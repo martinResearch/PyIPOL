@@ -24,7 +24,7 @@ version= __version_str__,
 packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
-package_data={'ipol': ['csources']}
+package_data={'ipol': ['csources/*']}
 )
 
 
