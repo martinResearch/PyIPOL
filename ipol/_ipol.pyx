@@ -1,5 +1,5 @@
 #experimental binding to IPOL algorithms written in cython
-# distutils: language =  c++
+# distutils: language =  c
 
 import numpy as np
 cimport numpy as np
