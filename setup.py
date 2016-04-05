@@ -21,7 +21,7 @@ libname="ipol"
 setup(
 name = libname,
 version= __version_str__,
-packages=         ['ipol'],
+packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
 )
