@@ -12,9 +12,6 @@ im_file =ipol.path+'/csources/lsd_1.6/chairs.pgm'
 image=netpbmfile.imread(im_file)
 plt.imshow(image,cmap=plt.cm.Greys_r)
 
-edges=ipol.edges_sobel(image.astype(np.float32),0.1,2)
-plt.imshow(edges)
-
 segments=ipol.lsd(image)
 print 'found '+str( segments.shape[0]),' segments'
 

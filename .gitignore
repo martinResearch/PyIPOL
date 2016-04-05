@@ -1,8 +1,10 @@
 
 ipol/csources/
 build/
-ipol/src/_ipol.c
+ipol/_ipol.c
 ipol/_ipol.so
-ipol/*.py~
-ipol/*.pyc
-
+*.py~
+*.pyc
+*.pxd~
+*.pyx~
+.gitignore~
