@@ -18,7 +18,7 @@ path='ipol/csources'
 paths=[]
 for (dir, _, files) in os.walk(path):
 	for f in files:
-		paths.append(os.path.join(dir, f))
+		paths.append(os.path.join(dir[len('ipol')+1:], f))
 	
 print paths
 sources = ['ipol/_ipol.pyx','ipol/csources/lsd_1.6/lsd.c','ipol/csources/classic_edge_detectors_1.0/classic_edge_detectors.c']
@@ -31,7 +31,7 @@ version= __version_str__,
 packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
-package_data={'':paths}
+package_data={'ipol':paths}
 )
 
 #from distutils import sysconfig
