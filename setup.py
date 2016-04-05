@@ -24,7 +24,14 @@ version= __version_str__,
 packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
-package_data={'ipol': ['csources/*']}
+include_package_data = True,
 )
 
+#from distutils import sysconfig
+#from distutils import dir_util
+#import os
+#destination_path = sysconfig.get_python_lib()
+#package_path = os.path.join(destination_path, libname,'csource2')
+#print 'copying c source code and data to %s'%package_path
+#dir_util.copy_tree('ipol/csources', package_path, update=1, preserve_mode=0)
 
