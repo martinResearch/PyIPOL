@@ -1,7 +1,7 @@
 ipol/thirdparties/
 ipol/csources/
 build/
-ipol/src/ipol.c
+ipol/src/_ipol.c
 ipol/_ipol.so
 ipol/*.py~
 ipol/*.pyc
