@@ -2,10 +2,10 @@ from scipy.misc import imread,imresize
 import matplotlib.pyplot as plt
 import numpy as np
 import ipol
-from thirdparties import netpbmfile
+from ipol.thirdparties import netpbmfile
 plt.ion()
 
-im_file ='./csources/lsd_1.6/chairs.pgm'
+im_file =ipol.path+'/csources/lsd_1.6/chairs.pgm'
 
 #image =imread(im_file)# does not work with the provided pgm file :(
 

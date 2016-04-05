@@ -27,7 +27,7 @@ files.append('http://www.ipol.im/pub/art/2012/abmh-rtmsa/MorphologicalSnakes_bas
 files.append('http://www.ipol.im/pub/art/2015/126/126.zip') #An Unsupervised Point Alignment Detection Algorithm
 
 
-extraction_directory='./csources'
+extraction_directory='./ipol/csources'
 for f in files:
 	print "downloading %s..."%f,
 	

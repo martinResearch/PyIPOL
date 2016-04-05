@@ -2,14 +2,19 @@ from distutils.core import setup,Extension
 from Cython.Build import cythonize
 import numpy as np
 
-import download_ipol # this import will download the sources
+# Get the version number.
+import runpy
+__version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 
-sources = ['ipol.pyx','csources/lsd_1.6/lsd.c','csources/classic_edge_detectors_1.0/classic_edge_detectors.c']
-extensions = Extension('ipol',sources, extra_compile_args=['-std=c99'])               
+__version_str__ = runpy.run_path("ipol/download_ipol.py")
+
+sources = ['ipol/src/_ipol.pyx','ipol/csources/lsd_1.6/lsd.c','ipol/csources/classic_edge_detectors_1.0/classic_edge_detectors.c']
+extensions = Extension('ipol._ipol',sources, extra_compile_args=['-std=c99'])               
 
 libname="ipol"
 setup(
 name = libname,
+version= __version_str__,
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include()],
 )
