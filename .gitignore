@@ -1,0 +1,9 @@
+thirdparties/
+csources/
+build/
+cipol.pxd
+ipol.c
+ipol.so
+*.py~
+*.pyc
+
