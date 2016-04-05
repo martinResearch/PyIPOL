@@ -8,11 +8,14 @@ code from *Image Processing On Line* [IPOL](http://www.ipol.im/)
 
 using pip
 
-	pip install git+git://github.com/martinResearch/PyIPOL.git
+	sudo pip install git+git://github.com/martinResearch/PyIPOL.git
 
 
-manually 
-	download https://github.com/pmneila/PyMaxflow/archive/master.zip
+local installation 
+
+	wget https://github.com/martinResearch/PyIPOL/archive/master.zip --no-check-certificate
+	unzip master.zip 
+	cd PyIPOL-master
 	python setup.py build_ext --inplace
 
 

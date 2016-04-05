@@ -14,13 +14,14 @@ __version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 
 import download_ipol
 import os
-path='ipol/csources'
-paths=[]
-for (dir, _, files) in os.walk(path):
-	for f in files:
-		paths.append(os.path.join(dir[len('ipol')+1:], f))
-	
-print paths
+paths=['ipol/csources','ipol/examples']
+files_to_copy=[]
+for path in paths:
+	for (dir, _, files) in os.walk(path):
+		for f in files:
+			files_to_copy.append(os.path.join(dir[len('ipol')+1:], f))
+print 'found %d file to copy'%len(files_to_copy)
+
 sources = ['ipol/_ipol.pyx','ipol/csources/lsd_1.6/lsd.c','ipol/csources/classic_edge_detectors_1.0/classic_edge_detectors.c']
 extensions = Extension('ipol._ipol',sources, extra_compile_args=['-std=c99'])               
 
@@ -31,7 +32,7 @@ version= __version_str__,
 packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
-package_data={'ipol':paths}
+package_data={'ipol':files_to_copy}
 )
 
 #from distutils import sysconfig
