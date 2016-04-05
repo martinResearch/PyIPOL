@@ -25,7 +25,7 @@ packages=         ['ipol','ipol.thirdparties'],
 ext_modules = cythonize(extensions),  # additional source file(s)),
 include_dirs=[ np.get_include(),'./ipol'],
 include_package_data = True,
-package_data = {'ipol':['*.txt', '*.rst','*.png','*.jpg','*.bmp','lsd_1.6/*.pgm']},
+package_data = {'ipol':['*.txt', '*.rst','*.png','*.jpg','*.bmp','csources/lsd_1.6/*.pgm']},
 )
 
 #from distutils import sysconfig
