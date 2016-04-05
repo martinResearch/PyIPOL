@@ -3,7 +3,7 @@
 
 import numpy as np
 cimport numpy as np
-cimport _cipol as cipol
+cimport ipol.src._cipol as cipol
 from cpython cimport PyObject, Py_INCREF
 from libc.stdlib cimport free
 
