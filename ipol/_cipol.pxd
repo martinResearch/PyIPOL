@@ -19,3 +19,6 @@ cdef extern from "./csources/classic_edge_detectors_1.0/classic_edge_detectors.h
 
 
 
+#cdef extern from "/media/veracrypt1/PyIPOL/ipol/csources/chanvese_20120715/chanvese.c":
+#	int ChanVese(float *Phi, const float *f, int Width, int Height, int NumChannels, const chanveseopt *Opt);
+
