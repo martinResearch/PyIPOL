@@ -2,6 +2,8 @@
 
 The goal of this project is to provide an easy-to-install set of python bindings around C++ implementations of image processing and computer vision algorithms from *Image Processing On Line* [IPOL](http://www.ipol.im/)
 
+The goal of the project in not to reimplement algorithm from IPOL in python or Cython, but only to create interfaces with minimal modification of the original C++ code. 
+The C++ code is not stored in this repository but downloaded duing the installation and modifications on the C++ code are saved as patches. 
  
 # Installation
 
@@ -29,10 +31,13 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 	* LSD: a Line Segment Detector [on IPOL](http://www.ipol.im/pub/art/2015/35/)
 
 # Related projects
-* the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://github.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
-* Some Matlab interface to IPOL algorithms is available [here](https://github.com/Paul-Darius/ipol-matlab)
+* the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://githua matlb.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
+* Some Matlab interfaces to IPOL algorithms written by [Paul-Darius Sarmadi](http://sarmadi.fr/mex-ipol-library/) during a summer internship in 2014 are available [here](https://github.com/Paul-Darius/ipol-matlab). This project contains a report with guidelines to make IPOL code easily interfacable with MATLAB.
 
+# Limitations
 
+* IPOL now *unfortunalty* accepts matlab code. Matlab code cannot easily be interfaced with python.
+* When the code has been writen with files as input/ouputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writting files to disk.
 
 # Examples 
 
