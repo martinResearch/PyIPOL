@@ -1,6 +1,6 @@
 # Project's goals
 
-The goal of this project is to provide an easy-to-install set of python bindings around image processing and computer vision C++
+The goal of this project is to provide an easy-to-install set of python bindings around the image processing and computer vision C++
 code from *Image Processing On Line* [IPOL](http://www.ipol.im/)
 
  
@@ -21,7 +21,7 @@ local installation
 
 # Available Bindings
 
-we are using the same categorization as[IPOL](http://www.ipol.im/)
+we are using the same categorization as [IPOL](http://www.ipol.im/)
 
 * 3D
  
@@ -40,7 +40,7 @@ If that is not the case you find where ipol has been installed from python using
 	import ipol
 	print ipol.path
 
-you can lanch an example direction from within python, for example for lsd: 
+you can lanch an example directly from within python using a simple import, for example for lsd: 
 
 	import ipol.examples.test_lsd
 
