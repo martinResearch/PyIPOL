@@ -36,11 +36,12 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 * the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://githua matlb.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
 * Some Matlab interfaces to IPOL algorithms written by [Paul-Darius Sarmadi](http://sarmadi.fr/mex-ipol-library/) during a summer internship in 2014 are available [here](https://github.com/Paul-Darius/ipol-matlab). This project contains a report with guidelines to make IPOL code that can easily be interfaced with MATLAB.
 
-# Limitations
+# Limitations and possible improvements
 
 * IPOL now *unfortunately* accepts Matlab code. Matlab code cannot easily be interfaced with python.
-* When the code has been writen with files as input/ouputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writting files to disk. However a direct interface without memory copies should be preferred when possible. 
+* When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. 
 * As we do not store the C++ code in the repository, modifications in the compressed files on IPOL may break the bindings. We may need to store the IPOL codes in an other Git repository (or another branch?) to make things more robust.
+* We could provide some PyQt widgets and some python tools provide an user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters.
 
 # Examples 
 
@@ -53,7 +54,7 @@ If that is not the case you find where ipol has been installed from python using
 	import ipol
 	print ipol.path
 
-you can lanch an example directly from within python using a simple import, for example for lsd: 
+you can launch an example directly from within python using a simple import, for example for lsd: 
 
 	import ipol.examples.test_lsd
 
@@ -72,9 +73,9 @@ or using
 
 The easiest way might be to create interfaces through temporary files and reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
 
-When the fonction has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
+When the function has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
 
-Detailed step-by-step explaination of how some bindings have been written will be added to the documentation.
+Detailed step-by-step explanation of how some bindings have been written will be added to the documentation.
 
 
 
