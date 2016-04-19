@@ -5,7 +5,7 @@ except ImportError:
 
 from distutils.extension import Extension
 from Cython.Build import cythonize
-import download_ipol
+
 
 import numpy as np
 
@@ -13,11 +13,11 @@ import numpy as np
 import runpy
 __version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 
-#download_ipol.download_all()
+
 import sys
 sys.path.append("./ipol")
 import wrappers
-#wrappers._install_all()
+wrappers._install_all()
 
 import os
 paths=['ipol/csources','ipol/examples']

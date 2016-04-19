@@ -45,59 +45,81 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 
 # Examples 
 
-Once installed examples can be found in 
-
-	/usr/local/lib/python2.7/dist-packages/ipol/examples
-
-If that is not the case you find where ipol has been installed from python using
-
-	import ipol
-	print ipol.path
-
-you can launch an example directly from within python using a simple import, for example for lsd: 
-
-	import ipol.examples.test_lsd
-
-you can get the list of examples as follows :
-
-	import ipol.examples
-	print ipol.examples.list
-
-or using 
-
-	import ipol 
-	import os
-	print os.listdir(os.path.join(ipol.path,'examples'))
+	import ipol.wrappers.LSD_a_Line_Segment_Detector as lsd
+	lsd.example()
 
 
-testing wrappers around executables 
+	import ipol.wrappers.A_Review_of_Classic_Edge_Detectors as ED
+	ED.example()
 
 	from ipol.wrappers import chanvese_segmentation
 	chanvese_segmentation.example()
 
-
 	from ipol.wrappers import Total_Variation_Deconvolution_using_Split_Bregman as tv 
 	tv.example()
-
 
 	from ipol.wrappers import Variational_Framework_for_Non_Local_Inpainting as NLI
 	NLI.example()
 
+# troubleshooting
+
+
+if you get an error like ImportError: /usr/lib/python2.7/dist-packages/cv2.so: undefined symbol: _ZN2cv23adaptiveBilateralFilterERKNS_11_InputArrayERKNS_12_OutputArrayENS_5Size_IiEEddNS_6Point_IiEEi
+you can start python as a super user.
 
 # Contributing
 
-The easiest way might be to create interfaces through temporary files and reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
+It might be a good idea to start with the most cited IPOL articles [see here](https://scholar.google.fr/citations?user=LFdvV4YAAAAJ)
+
+
+
+## Wrapping the executable 
+The easiest way to create interface to some IPOL code is to call an executable with temporary files.
+We structure the code such that all the code need to add a new binding is in a single new python file.
+For example the python code [here](https://github.com/martinResearch/PyIPOL/blob/master/ipol/wrappers/chanvese_segmentation.py) is all what needs to be written for the chanvese segmentation code binding.
+
+	* get a copy of the repository 
+
+	git clone https://github.com/martinResearch/PyIPOL.git
+
+	* go in the wrappers subdirectory
+
+	cd PyIPOL/wrappers
+
+	* create a new python file in the wrapper directory with the title of the paper 
+(you can copy one of the existing wrapper to go faster and get the overall structure)
+
+	cp chanvese_segmentation.py my_paper_title.py
+ 
+	* modify the  _install() function that downloads the code and compile it in the csources subfolder, look at the readme in the downloaded code in order to find the compilations instructions.
+
+	* test the function _install() locally using python your_file_name install (should work if you have copied *chanvese_segmentation.py*)
+	* create function(s) that take all the possible arguments for the method and calls the executable(s) with these arguments after saving data into temporary files
+	* add some example functions
+	* test the PyIPOL installation locally and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
+
+		path/PyIPOL$ sudo python setup.py install
+	 	path/PyIPOL$ cd ..
+		path$  python
+		import ipol
+		from ipol.wrappers import my_paper
+		mypaper.example()
+	 
+maybe this process could be further accelerated reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
+
+## Using Cython
 
 When the function has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
 
-Detailed step-by-step explanation of how some bindings have been written will be added to the documentation.
+## TODOS
+
+	improve the modules intialization files __init__.py to get a better autocompletion in wingide or ipython
+	improve the autocompletion for function wrapped with cython
+	put the cython code in separated cython files for each paper 
 
 
 
 
-compile locally wtihout downloading all the ipol files
-
-	python setup_nodownload.py build_ext --inplace
 
 
 
