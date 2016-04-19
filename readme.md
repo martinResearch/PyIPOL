@@ -129,11 +129,15 @@ When the function has be written to take data arrays as input/output it should p
 
 ## TODOS
 
+* delete temporary files when not needed anymore
+
 * improve the modules intialization files to get a better autocompletion in wingide or ipython
 
 * improve the autocompletion for function wrapped with cython
 
 * put the cython code in separated cython files for each paper 
+
+* may put the python code for each paper in a sperate folder 
 
 
 
