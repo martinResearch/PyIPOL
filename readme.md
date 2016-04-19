@@ -9,6 +9,8 @@ The C++ code is not stored in this repository but downloaded during the installa
  
 # Installation
 
+## Linux
+
 using pip
 
 	sudo pip install git+git://github.com/martinResearch/PyIPOL.git
@@ -20,7 +22,13 @@ local installation
 	unzip master.zip 
 	cd PyIPOL-master
 	python setup.py build_ext --inplace
+## Windows
 
+the installation functions need to be modified to work on windows
+
+## Mac OS
+
+not tested yet
 
 # Available bindings
 
