@@ -52,9 +52,9 @@ def tvdenoise(image,model,sigma):
    """
 
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG')[1]
    
-   temp_image_file =tempfile.mkstemp()[1]+'.PNG'
+   temp_image_file =tempfile.mkstemp('.PNG')[1]
    imsave(temp_image_file,image)
    assert(model in ['gaussian','laplace','poisson'])
   
@@ -65,6 +65,8 @@ def tvdenoise(image,model,sigma):
    os.system( command)   
    #reading the output from the temporary file
    output=imread(output_file)   
+   os.remove(output_file)
+   os.remove(temp_image_file)
    return output
 
 def imnoise(image,model,sigma):
@@ -77,9 +79,9 @@ The <model>:<sigma> argument has the same meaning as in tvdenoise.
    """
 
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG')[1]
    
-   temp_image_file =tempfile.mkstemp()[1]+'.PNG'
+   temp_image_file =tempfile.mkstemp('.PNG')[1]
    imsave(temp_image_file,image)
    assert(model in ['gaussian','laplace','poisson'])
   
@@ -90,6 +92,8 @@ The <model>:<sigma> argument has the same meaning as in tvdenoise.
    os.system( command)   
    #reading the output from the temporary file
    output=imread(output_file)   
+   os.remove(output_file)
+   os.remove(temp_image_file)   
    return output
 
 def example():

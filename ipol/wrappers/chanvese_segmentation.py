@@ -37,9 +37,9 @@ def chanvese(image,mu=0.25,nu=0.0,lambda1=1.0,lambda2=1.0,phi0=None,tol=1.e-4,ma
    """
 
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG' 
-   animation_file=tempfile.mkstemp()[1]+'.gif'
-   temp_image_file =tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG')[1] 
+   animation_file=tempfile.mkstemp('.gif')[1]
+   temp_image_file =tempfile.mkstemp('.PNG')[1]
    imsave(temp_image_file,image)
 
    if not phi0 is None:
@@ -54,9 +54,12 @@ def chanvese(image,mu=0.25,nu=0.0,lambda1=1.0,lambda2=1.0,phi0=None,tol=1.e-4,ma
    
    #reading the output from the temporary file
    output=imread(output_file)
-   
+   os.remove(output_file)
+   os.remove(temp_image_file)
    if getAnimation:
       animation=tools.read_animated_gif(animation_file)
+      
+      os.remove(animation_file)
       return output,animation
    else:
       return output

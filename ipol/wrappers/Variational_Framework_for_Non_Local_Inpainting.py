@@ -43,10 +43,10 @@ def inpaint(image,mask,method='nlmeans',patch=9,iters=300,scales=7,coarse=0.3,co
    """
 
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'    
-   image_file =tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG' )[1]  
+   image_file =tempfile.mkstemp('.PNG')[1]
    imsave(image_file,image)
-   mask_file =tempfile.mkstemp()[1]+'.PNG'
+   mask_file =tempfile.mkstemp('.PNG')[1]
    imsave(mask_file,mask)
 
    command=exec_folder+'/build/Inpainting %s %s %s'%(image_file,mask_file,output_file)
@@ -70,9 +70,13 @@ def inpaint(image,mask,method='nlmeans',patch=9,iters=300,scales=7,coarse=0.3,co
    p.wait()
    #reading the output from the temporary file
    
-   l=glob.glob(output_file+'*')# trick because the output file name is not excactly the one expected , things are added at the end
+   l=glob.glob(output_file+'_*')# trick because the output file name is not excactly the one expected , things are added at the end
    assert(len(l)==1)
    output=imread(l[0])
+   os.remove(l[0])
+   os.remove(output_file)
+   os.remove(image_file)
+   os.remove(mask_file)
    return output
 
 def example():

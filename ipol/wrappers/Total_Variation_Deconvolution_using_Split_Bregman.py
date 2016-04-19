@@ -43,8 +43,8 @@ def tvdeconv(image,kernel,radius=None,sigma_kernel=None,lamb=50,noise='gaussian'
    assert(noise in ['gaussian','laplace','poisson'])
    
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'    
-   image_file =tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG')[1]    
+   image_file =tempfile.mkstemp('.PNG')[1]
    imsave(image_file,image)
  
 
@@ -76,6 +76,8 @@ def tvdeconv(image,kernel,radius=None,sigma_kernel=None,lamb=50,noise='gaussian'
    
   
    output=imread(output_file)
+   os.remove(output_file)
+   os.remove(image_file)   
    return output
 
 def imblur(image,kernel,radius=None,sigma_kernel=None,noise='gaussian',sigma=2,jpegquality=100):
@@ -100,8 +102,8 @@ def imblur(image,kernel,radius=None,sigma_kernel=None,noise='gaussian',sigma=2,j
    assert(noise in ['gaussian','laplace','poisson'])
    
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'    
-   image_file =tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG' )[1] 
+   image_file =tempfile.mkstemp('.PNG')[1]
    imsave(image_file,image)
  
 
@@ -132,6 +134,8 @@ def imblur(image,kernel,radius=None,sigma_kernel=None,noise='gaussian',sigma=2,j
    
   
    output=imread(output_file)
+   os.remove(output_file)
+   os.remove(image_file)
    return output
 
 def example():

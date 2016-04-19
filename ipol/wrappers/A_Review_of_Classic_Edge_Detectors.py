@@ -24,10 +24,10 @@ def example():
 	plt.imshow(edges)
 
 if __name__ == '__main__':
-   import sys 
-   if 'install' in sys.argv:
-      _install()
-   else:
-      example()
+	import sys 
+	if 'install' in sys.argv:
+		_install()
+	else:
+		example()
 
 

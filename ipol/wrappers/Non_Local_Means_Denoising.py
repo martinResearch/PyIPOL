@@ -36,13 +36,13 @@ def nlmeans(image,sigma,noise_free=None):
    """
 
    #saving input image to a temporary file
-   output_file=tempfile.mkstemp()[1]+'.PNG'
+   output_file=tempfile.mkstemp('.PNG')[1]
    
-   temp_image_file =tempfile.mkstemp()[1]+'.PNG'
+   temp_image_file =tempfile.mkstemp('.PNG')[1]
    imsave(temp_image_file,image)
    
    if not noise_free is None:
-      temp_noise_free_image_file =tempfile.mkstemp()[1]+'.PNG'
+      temp_noise_free_image_file =tempfile.mkstemp('.PNG')[1]
       imsave(temp_noise_free_image_file,noise_free)
    else:
       temp_noise_free_image_file=temp_image_file
@@ -52,7 +52,11 @@ def nlmeans(image,sigma,noise_free=None):
    # calling the executable
    os.system( command)   
    #reading the output from the temporary file
-   output=imread(output_file)   
+   output=imread(output_file)  
+   os.remove(output_file)
+   if not noise_free is None:
+      os.remove(temp_noise_free_image_file)
+   os.remove(temp_image_file)
    return output
 
 def example():
