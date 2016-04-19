@@ -109,9 +109,9 @@ For example the python code [here](https://github.com/martinResearch/PyIPOL/blob
 		path/PyIPOL$ sudo python setup.py install
 	 	path/PyIPOL$ cd ..
 		path$  python
-		import ipol
-		from ipol.wrappers import my_paper
-		my_paper.example()
+		>>> import ipol
+		>>> from ipol.wrappers import my_paper
+		>>> my_paper.example()
 	 
 maybe this process could be further accelerated reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
 
