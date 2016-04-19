@@ -48,7 +48,6 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 	import ipol.wrappers.LSD_a_Line_Segment_Detector as lsd
 	lsd.example()
 
-
 	import ipol.wrappers.A_Review_of_Classic_Edge_Detectors as ED
 	ED.example()
 
@@ -112,7 +111,7 @@ For example the python code [here](https://github.com/martinResearch/PyIPOL/blob
 		path$  python
 		import ipol
 		from ipol.wrappers import my_paper
-		mypaper.example()
+		my_paper.example()
 	 
 maybe this process could be further accelerated reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
 
@@ -122,9 +121,11 @@ When the function has be written to take data arrays as input/output it should p
 
 ## TODOS
 
-*improve the modules intialization files __init__.py to get a better autocompletion in wingide or ipython
-*improve the autocompletion for function wrapped with cython
-*put the cython code in separated cython files for each paper 
+* improve the modules intialization files to get a better autocompletion in wingide or ipython
+
+* improve the autocompletion for function wrapped with cython
+
+* put the cython code in separated cython files for each paper 
 
 
 
