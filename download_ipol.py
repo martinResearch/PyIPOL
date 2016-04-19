@@ -5,6 +5,8 @@ import os
 import zipfile
 import tarfile
 
+extraction_directory='./ipol/csources'
+
 files=[]
 # 3D 
 files.append('http://www.ipol.im/pub/art/2014/81/BallPivoting.tgz') 	# An Analysis and Implementation of a Parallel Ball Pivoting Algorithm
@@ -27,10 +29,17 @@ files.append('http://www.ipol.im/pub/art/2012/abmh-rtmsa/MorphologicalSnakes_bas
 files.append('http://www.ipol.im/pub/art/2015/126/126.zip') #An Unsupervised Point Alignment Detection Algorithm
 
 
-extraction_directory='./ipol/csources'
-for f in files:
-	print "downloading %s..."%f,
+
+
+
+def download_all():
+	for f in files:
+		download_and_extract(f)
 	
+
+def download_and_extract(f):	
+	print "downloading %s..."%f,
+
 	local_filename, headers = urllib.urlretrieve(f)
 	if f[-3:]=='zip':
 		with zipfile.ZipFile(local_filename) as zf:
@@ -42,7 +51,7 @@ for f in files:
 		print 'unrecognized archive type'
 		raise
 	print "done"
-	
+
 
 
 

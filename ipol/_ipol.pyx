@@ -4,24 +4,45 @@
 import numpy as np
 cimport numpy as np
 cimport _cipol as cipol
-from cpython cimport PyObject, Py_INCREF
-from libc.stdlib cimport free
+
+
+
+
+
+# tools to deal with numpy to c and c to numpy array conversions without copies
+# largely copied from https://gist.github.com/GaelVaroquaux/1249305
+
 
 # Numpy must be initialized. When using numpy from C or Cython you must
 # _always_ do that, or you will have segfaults
+import numpy as np
+cimport numpy as np
+from libc.stdlib cimport free
+from cpython cimport PyObject, Py_INCREF
+np.import_array()
 
+
+
+# tools to deal with numpy to c and c to numpy array conversions without copies
+# largely copied from https://gist.github.com/GaelVaroquaux/1249305
+
+
+# Numpy must be initialized. When using numpy from C or Cython you must
+# _always_ do that, or you will have segfaults
+import numpy as np
+cimport numpy as np
+from libc.stdlib cimport free
+from cpython cimport PyObject, Py_INCREF
 np.import_array()
 
 
 cdef class ArrayWrapper:
 	""" Small Cython file to demonstrate the use of PyArray_SimpleNewFromData
-	in Cython to create an array from already allocated memory.
-	
+	in Cython to create an array from already allocated memory.	
 	Cython enables mixing C-level calls and Python-level calls in the same
 	file with a Python-like syntax and easy type cohersion. See 
 	http://cython.org for more information
-	"""
-	
+	"""	
 	# Author: Gael Varoquaux
 	# License: BSD
 	cdef void* data_ptr
@@ -75,6 +96,10 @@ cdef convertToNumpyWithoutCopy(void* coutput,shape,dtype):
 	#output.shape=image_c.shape
 	Py_INCREF(array_wrapper)
 	return output
+
+
+
+
 
 def  lsd(image):	
 	assert(image.ndim==2)

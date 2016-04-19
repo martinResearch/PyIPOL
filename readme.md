@@ -2,7 +2,7 @@
 
 The goal of this project is to provide an easy-to-install set of python bindings around C++ implementations of image processing and computer vision algorithms from *Image Processing On Line* [IPOL](http://www.ipol.im/). 
 
-IPOL is a great source of state-of-art algorithms in the domain of image processing and computer vision. For each accepted paper a demo is made available online which is very valuable as people can quickly test the algorithms without the need to install them on their own machines. However if one wants to reuse some of these algorithms as part of a larger project written in Python, there is still a non negligible cost associated with the process of downloading and compiling the code as well as writing the scripts that generate temporary input files, call the executable with the right arguments and load the results from the generated files. We aim at reducing that cost by proving a **pythonic interface to IPOL algorithms**.
+IPOL is a great source of state-of-art algorithms in the domain of image processing and computer vision. For each accepted paper a demo is made available online which is very valuable as people can quickly test the algorithms without the need to install them on their own machines. However if one wants to reuse some of these algorithms as part of a larger project written in Python, there is still a non negligible cost associated with the process of downloading and compiling each individual code we want to test as well as writing the scripts that generate temporary input files, call the executable with the right arguments and load the results from the generated files. We aim at reducing that cost by proving a **pythonic interface to IPOL algorithms** through one-line installer.
 
 The goal of the project **is not** to re-implement algorithm from IPOL in Python or Cython, but only to create interfaces with minimal modification of the original C++ code. 
 The C++ code is not stored in this repository but downloaded during the installation and potential modifications on the C++ code are saved as patches. 
@@ -22,7 +22,7 @@ local installation
 	python setup.py build_ext --inplace
 
 
-# Available Bindings
+# Available bindings
 
 we are using the same categorization as [IPOL](http://www.ipol.im/)
 
@@ -69,6 +69,21 @@ or using
 	import os
 	print os.listdir(os.path.join(ipol.path,'examples'))
 
+
+testing wrappers around executables 
+
+	from ipol.wrappers import chanvese_segmentation
+	chanvese_segmentation.example()
+
+
+	from ipol.wrappers import Total_Variation_Deconvolution_using_Split_Bregman as tv 
+	tv.example()
+
+
+	from ipol.wrappers import Variational_Framework_for_Non_Local_Inpainting as NLI
+	NLI.example()
+
+
 # Contributing
 
 The easiest way might be to create interfaces through temporary files and reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
@@ -76,6 +91,13 @@ The easiest way might be to create interfaces through temporary files and reusin
 When the function has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
 
 Detailed step-by-step explanation of how some bindings have been written will be added to the documentation.
+
+
+
+
+compile locally wtihout downloading all the ipol files
+
+	python setup_nodownload.py build_ext --inplace
 
 
 
