@@ -78,25 +78,25 @@ The easiest way to create interface to some IPOL code is to call an executable w
 We structure the code such that all the code need to add a new binding is in a single new python file.
 For example the python code [here](https://github.com/martinResearch/PyIPOL/blob/master/ipol/wrappers/chanvese_segmentation.py) is all what needs to be written for the chanvese segmentation code binding.
 
-	* get a copy of the repository 
+* get a copy of the repository 
 
 	git clone https://github.com/martinResearch/PyIPOL.git
 
-	* go in the wrappers subdirectory
+* go in the wrappers subdirectory
 
 	cd PyIPOL/wrappers
 
-	* create a new python file in the wrapper directory with the title of the paper 
+* create a new python file in the wrapper directory with the title of the paper 
 (you can copy one of the existing wrapper to go faster and get the overall structure)
 
 	cp chanvese_segmentation.py my_paper_title.py
  
-	* modify the  _install() function that downloads the code and compile it in the csources subfolder, look at the readme in the downloaded code in order to find the compilations instructions.
+* modify the  _install() function that downloads the code and compile it in the csources subfolder, look at the readme in the downloaded code in order to find the compilations instructions.
 
-	* test the function _install() locally using python your_file_name install (should work if you have copied *chanvese_segmentation.py*)
-	* create function(s) that take all the possible arguments for the method and calls the executable(s) with these arguments after saving data into temporary files
-	* add some example functions
-	* test the PyIPOL installation locally and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
+* test the function _install() locally using python your_file_name install (should work if you have copied *chanvese_segmentation.py*)
+* create function(s) that take all the possible arguments for the method and calls the executable(s) with these arguments after saving data into temporary files
+* add some example functions
+* test the PyIPOL installation locally and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
 
 		path/PyIPOL$ sudo python setup.py install
 	 	path/PyIPOL$ cd ..
