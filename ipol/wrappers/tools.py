@@ -12,16 +12,16 @@ path=os.path.dirname(__file__)
 extraction_directory=os.path.join(path,'../csources')
 
 
-def download_and_extract(f):	
+def download_and_extract(f,subfolder=''):	
 	print "downloading %s..."%f,
 
 	local_filename, headers = urllib.urlretrieve(f)
 	if f[-3:]=='zip':
 		with zipfile.ZipFile(local_filename) as zf:
-			zf.extractall(extraction_directory)
+			zf.extractall(extraction_directory+subfolder)
 	elif f[-2:]=='gz':
 		with tarfile.open(local_filename, "r") as tar:
-			tar.extractall(extraction_directory)
+			tar.extractall(extraction_directory+subfolder)
 	else:
 		print 'unrecognized archive type'
 		raise

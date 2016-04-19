@@ -125,7 +125,11 @@ maybe this process could be further accelerated reusing the online demos python 
 
 ## Using Cython
 
+
+
 When the function has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
+
+
 
 ## TODOS
 
@@ -137,7 +141,16 @@ When the function has be written to take data arrays as input/output it should p
 
 * put the cython code in separated cython files for each paper 
 
-* may put the python code for each paper in a sperate folder 
+* may put the python code for each paper in a sperate folder
+
+## Guidelines for IPOL code
+
+in some cases the executable doe not allow enough control to make a usefull binding.
+for example the code for http://www.ipol.im/pub/art/2012/l-bm3d/article_lr.pdf
+does not allows to provide the algorithm with a noisy image we want to denoise.
+Better to provide separatly 
+* an executable that perform the task without access to the ground truth
+* an executable to generate test data (for exemple that add noise to an image) 
 
 
 
