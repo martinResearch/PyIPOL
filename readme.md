@@ -80,16 +80,22 @@ For example the python code [here](https://github.com/martinResearch/PyIPOL/blob
 
 * get a copy of the repository 
 
-	git clone https://github.com/martinResearch/PyIPOL.git
+
+		git clone https://github.com/martinResearch/PyIPOL.git
+
 
 * go in the wrappers subdirectory
 
-	cd PyIPOL/wrappers
+
+		cd PyIPOL/wrappers
+	
 
 * create a new python file in the wrapper directory with the title of the paper 
 (you can copy one of the existing wrapper to go faster and get the overall structure)
 
-	cp chanvese_segmentation.py my_paper_title.py
+
+		cp chanvese_segmentation.py my_paper_title.py
+	
  
 * modify the  _install() function that downloads the code and compile it in the csources subfolder, look at the readme in the downloaded code in order to find the compilations instructions.
 
@@ -113,9 +119,9 @@ When the function has be written to take data arrays as input/output it should p
 
 ## TODOS
 
-	improve the modules intialization files __init__.py to get a better autocompletion in wingide or ipython
-	improve the autocompletion for function wrapped with cython
-	put the cython code in separated cython files for each paper 
+*improve the modules intialization files __init__.py to get a better autocompletion in wingide or ipython
+*improve the autocompletion for function wrapped with cython
+*put the cython code in separated cython files for each paper 
 
 
 
