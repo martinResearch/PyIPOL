@@ -1,0 +1,104 @@
+import tempfile   
+import os
+from scipy.misc import imsave,imread
+from skimage.io import imread as skimage_imread
+import tools
+import subprocess
+
+
+string="""Implementation of the "Non-Local Bayes" (NL-Bayes) Image Denoising Algorithm
+Marc Lebrun, Antoni Buades, Jean-Michel Morel"""
+
+path=os.path.dirname(__file__)
+
+exec_folder=tools.extraction_directory+'/nl-bayes_20130617'
+def _install():
+   """this function downloads and compile the code for the chanvese implementation"""
+   download_file='http://www.ipol.im/pub/art/2013/16/nl-bayes_20130617.zip'
+   tools.download_and_extract(download_file)  
+   import urllib
+   # getting example images
+   urllib.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cinput.jpg',os.path.join(exec_folder,'cinput.jpg'))
+   urllib.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cnoisy.jpg',os.path.join(exec_folder,'cnoisy.jpg'))
+   
+   subprocess.call('make OMP=1', shell=True,cwd=exec_folder)   
+   
+   
+
+def DCTdenoising(image,sigma,noise_free=None,UseArea1=1,UseArea2=0,compute_bias=0):
+   """
+   `nlmeans_ipol ` takes 4 parameter: `nlmeans_ipol in.png sigma noisy.png denoised.png`
+   * `sigma`     : the noise standard deviation
+   * `in.png`   : initial noise free image
+   * `noisy.png`  : noisy image used by the denoising algorithm
+   * `denoised.png` : denoised image
+   """
+
+   #saving input image to a temporary file
+   output_file=tempfile.mkstemp('.PNG')[1]
+   
+   temp_image_file =tempfile.mkstemp('.PNG')[1]
+   imsave(temp_image_file,image)
+   
+   ImBasic_file     = tempfile.mkstemp('.PNG')[1]
+   ImDiff_file      = tempfile.mkstemp('.PNG')[1]
+   ImBias_file      = tempfile.mkstemp('.PNG')[1]
+   ImBiasBasic_file  = tempfile.mkstemp('.PNG')[1]
+   ImDiffBias_file  = tempfile.mkstemp('.PNG')[1]
+   temp_folder=tempfile.mkdtemp()
+   
+   
+   if not noise_free is None:
+      temp_noise_free_image_file =tempfile.mkstemp('.PNG')[1]
+      imsave(temp_noise_free_image_file,noise_free)
+   else:
+      temp_noise_free_image_file=temp_image_file
+   #./demo_DCTdenoising cinput.png 10 ImNoisy.png ImDenoised.png ImDiff.png
+   command='cd %s'%temp_folder+';'+exec_folder+'/NL_Bayes %s %f %s %s %s %s %s %s %s %d %d %d'%(temp_noise_free_image_file,sigma,temp_image_file,output_file,ImBasic_file,ImDiff_file,ImBias_file,ImBiasBasic_file,ImDiffBias_file ,UseArea1,UseArea2,compute_bias)
+      
+   # calling the executable
+   os.system( command)   
+   #reading the output from the temporary file
+   output=imread(output_file)  
+   os.remove(output_file)
+   if not noise_free is None:
+      os.remove(temp_noise_free_image_file)
+   os.remove(ImBasic_file)
+   os.remove(ImDiff_file )
+   os.remove(ImBias_file      )
+   os.remove(ImBiasBasic_file  )
+   os.remove(ImDiffBias_file )   
+   os.remove(temp_image_file)
+   os.remove(os.path.join(temp_folder,'measures.txt'))
+   os.rmdir(temp_folder)
+   return output
+
+def example():
+   
+   from matplotlib import pyplot as plt
+   import numpy as np
+   
+   noise_free=imread(exec_folder+'/cinput.jpg')# the scipy.misc.imread uses PIL which give an error for this bmp file (Unsupported BMP compression )
+   noisy=imread(exec_folder+'/cnoisy.jpg')
+   output=DCTdenoising(noisy,sigma=3,noise_free=noise_free)
+   plt.subplot(2,2,1)   
+   plt.imshow(noise_free)
+   plt.subplot(2,2,2)   
+   plt.imshow(noisy)
+   plt.subplot(2,2,3)   
+   plt.imshow(output)   
+   plt.subplot(2,2,4)   
+   plt.imshow(np.sum(np.abs(output.astype(np.float)-noise_free.astype(np.float)),axis=2)/5 ,cmap='Greys_r')    
+   plt.show()
+   print 'done' 
+   
+if __name__ == '__main__':
+   import sys 
+   if 'install' in sys.argv:
+      _install()
+   else:
+      example()
+
+
+
+
