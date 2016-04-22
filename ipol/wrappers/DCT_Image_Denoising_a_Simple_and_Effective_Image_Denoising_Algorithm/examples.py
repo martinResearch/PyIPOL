@@ -1,7 +1,6 @@
 import tempfile   
 import os
 from scipy.misc import imsave,imread
-from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
 import ipol.wrappers.DCT_Image_Denoising_a_Simple_and_Effective_Image_Denoising_Algorithm as wrapper
