@@ -46,27 +46,29 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 
 # Limitations and possible improvements
 
-* IPOL now *unfortunately* accepts Matlab code. Matlab code cannot easily be interfaced with python. (NOTE: all IPOL algorithms written in M-language can be run using the octave interpreter, which is very easy to call from python). 
+* IPOL now  accepts Matlab code. We will have to call an octave interpreter from python.
+
 * When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. (NOTE: the visible python interface must be independent to the underlying technique for the binding.  Thus, even if the algorithms are called internally by direct c/python bindings or using temporary files, the interface is *exactly* the same.  Designing this interface is an entirely independent task than implementeing it.  The interface is more important than the implementation, thus we may start by the simplest possible implementation). 
 * As we do not store the C++ code in the repository, modifications in the compressed files on IPOL may break the bindings. We may need to store the IPOL codes in an other Git repository (or another branch?) to make things more robust.  (NOTE: this cannot happen, because the compressed files in ipol are frozen and will never change).
 * We could provide some PyQt widgets and some python tools provide an user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters. (NOTE: ok, but this should be a separate project.  The python binding should be useful in a headless server without Qt libraries).
 
 # Examples 
 
-	import ipol.wrappers.LSD_a_Line_Segment_Detector as lsd
-	lsd.example()
 
-	import ipol.wrappers.A_Review_of_Classic_Edge_Detectors as ED
-	ED.example()
+you can run an eample directly from python 
 
-	from ipol.wrappers import chanvese_segmentation
-	chanvese_segmentation.example()
+ 	import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_Implementation.examples as ex
+	ex.example()
 
-	from ipol.wrappers import Total_Variation_Deconvolution_using_Split_Bregman as tv 
-	tv.example()
+you can find the example file and display the source of the example using 
+	
+	import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_Implementation.examples as ex
+	import inspect
+	print inspect.getsourcefile(ex)
+	print '------------------------------------'
+	print inspect.getsource(ex)
 
-	from ipol.wrappers import Variational_Framework_for_Non_Local_Inpainting as NLI
-	NLI.example()
+
 
 # troubleshooting
 
@@ -82,52 +84,39 @@ It might be a good idea to start with the most cited IPOL articles [see here](ht
 
 ## Wrapping the executable 
 The easiest way to create interface to some IPOL code is to call an executable with temporary files.
-We structured the code such that all the code needed to add a new binding remains in a single new python file.
-For example the python code [here](https://github.com/martinResearch/PyIPOL/blob/master/ipol/wrappers/chanvese_segmentation.py) is enough for the chanvese segmentation code binding.
+
 
 * get a copy of the repository 
-
 
 		git clone https://github.com/martinResearch/PyIPOL.git
 
 
-* go in the wrappers subdirectory
+* copy one of the existing wrapper  PyIPOL/wrappers that does not use cython (no pxd and pyx files)
 
-
-		cd PyIPOL/wrappers
-	
-
-* create a new python file in the wrapper directory with the title of the paper withou spaces or dashes
-(you can copy one of the existing wrapper to go faster and get the overall structure)
-
-
-		cp chanvese_segmentation.py my_paper_title.py
+* move all the other wrappers in a different folder such that the folder wrapper contain only the new wrapper, which will speedup subsequent tests
 	
  
-* modify the  _install() function that downloads the code in the csources subfolder and compiles it, look at the readme in the downloaded code in order to find the compilations instructions and transcript them into the function.
+* modify the  content of the files in order to put the right zip file url etc. 
 
-* test the function _install() locally using  (should work if you have copied *chanvese_segmentation.py*):
-	
-		python your_file_name install
 
-* create function(s) that take all the possible arguments for the method and calls the executable(s) with these arguments after saving data into temporary files
-* add some example functions
+* test the installation
+
+		PyIPOL$ sudo setup.py install
+
 * test the PyIPOL installation locally and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
 
-		path/PyIPOL$ sudo python setup.py install
+		
 	 	path/PyIPOL$ cd ..
 		path$  python
 		>>> import ipol
-		>>> from ipol.wrappers import my_paper
-		>>> my_paper.example()
+		>>> import ipol.wrappers.my_wrapper_name.examples as ex
+		>>> ex.example()
 	 
 maybe this process could be further accelerated reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
 
 ## Using Cython
 
-
-
-When the function has be written to take data arrays as input/output it should possible to provide them with data from numpy arrays without copies using the class *ArrayWrapper* defined in the file *_ipol.pyx*.
+follow the same methodology as in the previous section but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files)
 
 
 

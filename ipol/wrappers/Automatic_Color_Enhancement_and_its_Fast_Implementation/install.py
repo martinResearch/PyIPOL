@@ -1,11 +1,12 @@
+import os
 import tools
 import subprocess
-import os
+
 
 string="""Automatic Color Enhancement (ACE) and its Fast Implementation
 Pascal Getreuer"""
 
-path=os.path.dirname(__file__)
+
 
 exec_folder=tools.extraction_directory+'/ace_20121029'
 source_directory=exec_folder

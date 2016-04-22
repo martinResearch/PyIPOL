@@ -9,7 +9,7 @@ from distutils.extension import Extension
 import numpy as np
 
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 import tools
 
 

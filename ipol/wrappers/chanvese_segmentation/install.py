@@ -5,7 +5,6 @@ from skimage.io import imread as skimage_imread
 import tools
 import subprocess
 
-
 string="""Chan-Vese Segmentation 
 Pascal Getreuer
 http://www.ipol.im/pub/art/2012/g-cv"""

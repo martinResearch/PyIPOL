@@ -1,7 +1,7 @@
 from scipy.misc import imread
 import matplotlib.pyplot as plt
 import ipol.wrappers.A_Review_of_Classic_Edge_Detectors as wrapper
-
+import numpy as np
 
 def example():
 	plt.ion()

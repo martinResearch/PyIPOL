@@ -10,7 +10,7 @@ def example():
 	plt.ion()
 
 	im_file =os.path.join(lsd.source_directory,'chairs.pgm')
-
+	print 'reading file %s'%im_file
 	#image =imread(im_file)# does not work with the provided pgm file :(
 
 	image=netpbmfile.imread(im_file)

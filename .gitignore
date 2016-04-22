@@ -8,3 +8,5 @@ ipol/_ipol.so
 *.pxd~
 *.pyx~
 .gitignore~
+ipol.egg-info/
+dist/

@@ -21,6 +21,7 @@ def _install_all():
 	for filename in l:
 		if os.path.isfile(os.path.join(filename,'setup.py')):#cython binding
 			os.system('cd %s;python setup.py build_ext --inplace'%filename)
+			#execfile(' %s/setup.py '%filename,[build_ext --inplace])
 		else:	
 			filew=os.path.join(filename,'install.py')
 			if not os.path.isfile(filew):
@@ -29,7 +30,15 @@ def _install_all():
 			foo = imp.load_source('temp_module',filew)	
 			foo._install()	
 		
-		
+def run_all_examples():
+	
+	for filename in list_wrappers():
+		f='%sexamples.py'%filename
+		print 'running %s...'%f
+		execfile(f,{'__name__' : '__main__'})
+		print 'done'
+
+
 		
 		
 	
