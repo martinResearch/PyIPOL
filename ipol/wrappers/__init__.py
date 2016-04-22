@@ -34,9 +34,9 @@ def run_all_examples():
 	
 	for filename in list_wrappers():
 		f='%sexamples.py'%filename
-		print 'running %s...'%f
+		print('running %s...'%f)
 		execfile(f,{'__name__' : '__main__'})
-		print 'done'
+		print('done')
 
 
 		
