@@ -68,6 +68,10 @@ you can find the example file and display the source of the example using
 	print '------------------------------------'
 	print inspect.getsource(ex)
 
+you can run all the examples using
+
+	import ipol.wrappers
+	ipol.wrappers.run_all_examples()
 
 
 # troubleshooting
