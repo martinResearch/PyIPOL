@@ -28,10 +28,10 @@ local installation
 
 The first steps could be:
 * install Git from [here](https://git-scm.com/download/win)
-* install MinGW from [here](https://sourceforge.net/projects/mingw/files/Installer/)(mingw32-base,mingw32-gcc-g++) 
+* install MinGW + MSYS  from [here](https://sourceforge.net/projects/mingw/files/Installer/)(mingw32-base,mingw32-gcc-g++) 
 * install Microsoft Visual Studio Express [here]()
 * try nmake in command line ? 
-* try make in command line ? 
+* try make in command in MSYS terminal  ? 
 
 	pip install git+git://github.com/martinResearch/PyIPOL.git
 	
