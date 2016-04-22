@@ -8,8 +8,7 @@ from PIL import Image
 import numpy as np
 
 path=os.path.dirname(__file__)
-
-extraction_directory=os.path.join(path,'../csources')
+extraction_directory=os.path.join(path,'csources')
 
 
 def download_and_extract(f,subfolder=''):	

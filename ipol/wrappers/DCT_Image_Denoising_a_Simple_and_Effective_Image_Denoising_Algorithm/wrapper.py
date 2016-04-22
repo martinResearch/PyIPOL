@@ -2,7 +2,7 @@ import tempfile
 import os
 from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
-import tools
+import ipol.tools as tools
 import subprocess
 
 
@@ -12,17 +12,7 @@ Guoshen Yu, Guillermo Sapiro"""
 path=os.path.dirname(__file__)
 
 exec_folder=tools.extraction_directory+'/src_demoDCTdenoising'
-def _install():
-   """this function downloads and compile the code for the chanvese implementation"""
-   download_file='http://www.ipol.im/pub/art/2011/ys-dct/src_demoDCTdenoising.tar.gz'
-   tools.download_and_extract(download_file)  
-   import urllib
-   # getting example images
-   urllib.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cinput.jpg',os.path.join(exec_folder,'cinput.jpg'))
-   urllib.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cnoisy.jpg',os.path.join(exec_folder,'cnoisy.jpg'))
-   
-   subprocess.call('make OMP=1', shell=True,cwd=exec_folder)   
-   
+source_directory=exec_folder
    
 
 def DCTdenoising(image,sigma,noise_free=None):
@@ -58,31 +48,12 @@ def DCTdenoising(image,sigma,noise_free=None):
    os.remove(temp_image_file)
    return output
 
-def example():
-   
-   from matplotlib import pyplot as plt
-   import numpy as np
-   
-   noise_free=imread(exec_folder+'/cinput.jpg')# the scipy.misc.imread uses PIL which give an error for this bmp file (Unsupported BMP compression )
-   noisy=imread(exec_folder+'/cnoisy.jpg')
-   output=DCTdenoising(noisy,sigma=3,noise_free=noise_free)
-   plt.subplot(2,2,1)   
-   plt.imshow(noise_free)
-   plt.subplot(2,2,2)   
-   plt.imshow(noisy)
-   plt.subplot(2,2,3)   
-   plt.imshow(output)   
-   plt.subplot(2,2,4)   
-   plt.imshow(np.sum(np.abs(output.astype(np.float)-noise_free.astype(np.float)),axis=2)/5 ,cmap='Greys_r')    
-   plt.show()
-   print 'done' 
+
    
 if __name__ == '__main__':
    import sys 
    if 'install' in sys.argv:
       _install()
-   else:
-      example()
 
 
 

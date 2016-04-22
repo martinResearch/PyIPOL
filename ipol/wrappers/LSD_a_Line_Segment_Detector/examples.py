@@ -1,27 +1,22 @@
 from scipy.misc import imread,imresize
 import matplotlib.pyplot as plt
 import numpy as np
-import ipol
+import ipol.wrappers.LSD_a_Line_Segment_Detector as lsd	
 from ipol.thirdparties import netpbmfile
-import tools
-
-def _install():
-
-   	download_file='http://www.ipol.im/pub/art/2012/gjmr-lsd/lsd_1.6.zip'
-   	tools.download_and_extract(download_file)  
-	pass
+import ipol.tools
+import os
 
 def example():
 	plt.ion()
 
-	im_file =ipol.path+'/csources/lsd_1.6/chairs.pgm'
+	im_file =os.path.join(lsd.source_directory,'chairs.pgm')
 
 	#image =imread(im_file)# does not work with the provided pgm file :(
 
 	image=netpbmfile.imread(im_file)
 	plt.imshow(image,cmap=plt.cm.Greys_r)
 
-	segments=ipol.lsd(image)
+	segments=lsd.lsd(image)
 	print 'found '+str( segments.shape[0]),' segments'
 
 	plt.figure()
@@ -33,11 +28,8 @@ def example():
 	plt.ioff()
 
 	plt.show()
-
+	
 if __name__ == '__main__':
-   import sys 
-   if 'install' in sys.argv:
-      _install()
-   else:
-      example()
+	example()
+
 

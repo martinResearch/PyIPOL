@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import tempfile   
 import os
 from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
-import tools
+import ipol.tools as tools
 import subprocess
 import numpy as np
 
@@ -12,15 +14,8 @@ Javier Sánchez Pérez, Enric Meinhardt-Llopis, Gabriele Facciolo"""
 path=os.path.dirname(__file__)
 
 exec_folder=tools.extraction_directory+'/tvl1flow_3'
-def _install():
-   """this function downloads and compile the code """
-   download_file='http://www.ipol.im/pub/art/2013/26/tvl1flow_3.tar.gz'
-   tools.download_and_extract(download_file)  
-   os.system( 'sudo apt-get install build-essential libjpeg8-dev libpng-dev libtiff-dev')
-   this_file_path=os.path.dirname(__file__)
-   subprocess.call('make', shell=True,cwd=exec_folder)   
-   
-   
+source_directory=exec_folder
+
 
 def tvl1flow(image1,image2,NPROCS=0,TAU=0.25,LAMBDA=0.15,THETA=0.3,NSCALES=5,ZOOM= 0.5,NWARPS=5,EPSILON=0.01,VERBOSE=1):
    """
@@ -58,32 +53,12 @@ def tvl1flow(image1,image2,NPROCS=0,TAU=0.25,LAMBDA=0.15,THETA=0.3,NSCALES=5,ZOO
    os.remove(temp_image2_file)
    return flow
 
-def example():
-   
-   from matplotlib import pyplot as plt
-   import numpy as np
-   
-   image1=imread(exec_folder+'/I0.png')
-   image2=imread(exec_folder+'/I1.png')
-   
-   flow=tvl1flow(image1,image2)
-   plt.subplot(2,2,1)   
-   plt.imshow(image1)
-   plt.subplot(2,2,2)   
-   plt.imshow(image2)
-   plt.subplot(2,2,3)   
-   plt.imshow(flow[:,:,0])   
-   plt.subplot(2,2,4)   
-   plt.imshow(flow[:,:,1])    
-   plt.show()
-   print 'done' 
-   
+
 if __name__ == '__main__':
    import sys 
    if 'install' in sys.argv:
       _install()
-   else:
-      example()
+
 
 
 

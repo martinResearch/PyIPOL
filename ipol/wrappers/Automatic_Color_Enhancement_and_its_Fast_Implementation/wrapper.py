@@ -2,7 +2,7 @@ import tempfile
 import os
 from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
-import tools
+import ipol.tools as tools
 import subprocess
 
 
@@ -12,13 +12,7 @@ Pascal Getreuer"""
 path=os.path.dirname(__file__)
 
 exec_folder=tools.extraction_directory+'/ace_20121029'
-def _install():
-   """this function downloads and compile the code for the chanvese implementation"""
-   download_file='http://www.ipol.im/pub/art/2012/g-ace/ace_20121029.tar.gz'
-   tools.download_and_extract(download_file) 
-   subprocess.call('make -f makefile.gcc', shell=True,cwd=exec_folder)   
-   
-   
+source_directory=exec_folder
 
 def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpeg_quality=100):
    """
@@ -70,27 +64,11 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    os.remove(temp_image_file)
    return output
 
-def example():
-   
-   from matplotlib import pyplot as plt
-   import numpy as np
-   
-   image=imread(exec_folder+'/avs.jpg')# the scipy.misc.imread uses PIL which give an error for this bmp file (Unsupported BMP compression )
-   
-   output=ace(image,alpha=5,omega='1/r',method='interp',levels=5)
-   plt.subplot(1,2,1)   
-   plt.imshow(image)
-   plt.subplot(1,2,2)   
-   plt.imshow(output)
-   plt.show()
-   print 'done' 
-   
+
 if __name__ == '__main__':
-   import sys 
-   if 'install' in sys.argv:
-      _install()
-   else:
-      example()
+   import sys    
+   _install()
+
 
 
 

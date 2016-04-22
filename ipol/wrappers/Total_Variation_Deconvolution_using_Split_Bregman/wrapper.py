@@ -2,7 +2,7 @@ import tempfile
 import os
 from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
-import tools
+import ipol.tools as tools
 import subprocess
 import glob
 from subprocess import Popen, PIPE, STDOUT
@@ -13,14 +13,7 @@ http://www.ipol.im/pub/art/2012/g-tvdc/'''
 
 
 exec_folder=tools.extraction_directory+'/tvdeconv_20120607'
-def _install():
-   """this function downloads and compile the code for the tvdeconv implementation"""
-   download_file='http://www.ipol.im/pub/art/2012/g-tvdc/tvdeconv_20120607.tar.gz'
-   tools.download_and_extract(download_file)  
-   this_file_path=os.path.dirname(__file__)
-   subprocess.call('make -f makefile.gcc', shell=True,cwd=exec_folder)   
-  
-   
+source_directory=exec_folder
 
 def tvdeconv(image,kernel,radius=None,sigma_kernel=None,lamb=50,noise='gaussian',jpegquality=100):
    """
@@ -138,26 +131,6 @@ def imblur(image,kernel,radius=None,sigma_kernel=None,noise='gaussian',sigma=2,j
    os.remove(image_file)
    return output
 
-def example():
-   
-   from matplotlib import pyplot as plt
-   import cv2
-   im_file =exec_folder+'/einstein.bmp'
-   image=cv2.imread(im_file)
-   blurry=imblur(image, kernel='disk',radius=1,noise='gaussian',sigma=5)
-   deconv=tvdeconv(image, kernel='disk',radius=1,noise='gaussian',lamb=50)
-   plt.subplot(1,3,1)
-   plt.imshow(image)
-   plt.subplot(1,3,2)
-   plt.imshow(blurry, cmap='Greys_r')
-   plt.subplot(1,3,3)
-   plt.imshow(deconv, cmap='Greys_r')
-   plt.show()
-   print 'done' 
-   
-if __name__ == '__main__':
-   #_install()
-   example()
 
 
 
