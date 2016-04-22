@@ -34,11 +34,33 @@ not tested yet
 
 we are using the same categorization as [IPOL](http://www.ipol.im/)
 
-* 3D
+
+
+* Blur
+	* Total Variation Deconvolution using Split Bregman [on IPOL](http://www.ipol.im/pub/art/2012/g-tvdc/)
  
-* SEGMENTATION AND EDGES
+* Color and Contrast
+	* Automatic Color Enhancement (ACE) and its Fast Implementation [on PIOL](http://www.ipol.im/pub/art/2012/g-ace/)
+
+* Denoising
+	* Implementation of the "Non-Local Bayes" (NL-Bayes) Image Denoising Algorithm [on IPOL](http://www.ipol.im/pub/art/2013/16/)
+	* Rudin-Osher-Fatemi Total Variation Denoising using Split Bregman [on PIOL](http://www.ipol.im/pub/art/2012/g-tvd/)
+	* DCT Image Denoising: a Simple and Effective Image Denoising Algorithm [on IPOL](http://www.ipol.im/pub/art/2011/ys-dct/)
+	* Non-Local Means Denoising [on IPOL](http://www.ipol.im/pub/art/2011/bcm_nlm/)
+
+* Inpainting
+	* Variational Framework for Non-Local Inpainting [on IPOL](http://www.ipol.im/pub/art/2015/136/)
+
+* Optical Flow
+	* TV-L1 Optical Flow Estimation [on IPOL](http://www.ipol.im/pub/art/2013/26/)
+
+* Segmentation and Edges
 	* A Review of Classic Edge Detectors [on IPOL](http://www.ipol.im/pub/art/2012/gjmr-lsd/)
+	* Chan-Vese Segmentation [on IPOL](http://www.ipol.im/pub/art/2012/g-cv/)	
 	* LSD: a Line Segment Detector [on IPOL](http://www.ipol.im/pub/art/2015/35/)
+
+
+
 
 # Related projects
 * the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://githua matlb.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
