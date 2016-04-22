@@ -1,20 +1,26 @@
 # this script will download the original C++ codes from  IPOL and eventually patch some of the code
 
-import urllib
 import os
 import zipfile
 import tarfile
 from PIL import Image
 import numpy as np
 
+import sys
+
+if sys.version_info[0] == 2:
+    from urllib import urlretrieve
+else:
+    from urllib.request import urlretrieve
+
 path=os.path.dirname(__file__)
 extraction_directory=os.path.join(path,'csources')
 
 
 def download_and_extract(f,subfolder=''):	
-	print "downloading %s..."%f,
+	print("downloading %s..."%f)
 
-	local_filename, headers = urllib.urlretrieve(f)
+	local_filename, headers = urlretrieve(f)
 	if f[-3:]=='zip':
 		with zipfile.ZipFile(local_filename) as zf:
 			zf.extractall(extraction_directory+subfolder)
@@ -22,9 +28,9 @@ def download_and_extract(f,subfolder=''):
 		with tarfile.open(local_filename, "r") as tar:
 			tar.extractall(extraction_directory+subfolder)
 	else:
-		print 'unrecognized archive type'
+		print('unrecognized archive type')
 		raise
-	print "done"
+	print("done")
 	
 	
 def read_animated_gif(file):
