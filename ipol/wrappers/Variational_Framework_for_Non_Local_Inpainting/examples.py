@@ -1,5 +1,4 @@
 from scipy.misc import imsave,imread
-from skimage.io import imread as skimage_imread
 import ipol.wrappers.Variational_Framework_for_Non_Local_Inpainting as wrapper
 def example():
    

@@ -1,7 +1,6 @@
 import tempfile   
 import os
 from scipy.misc import imsave,imread
-from skimage.io import imread as skimage_imread
 import tools
 import subprocess
 import glob
