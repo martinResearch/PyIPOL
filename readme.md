@@ -24,7 +24,18 @@ local installation
 	python setup.py build_ext --inplace
 ## Windows
 
-the installation functions need to be modified to work on windows
+**the installation functions need to be modified to work on windows**
+
+The first steps could be:
+* install Git from [here](https://git-scm.com/download/win)
+* install MinGW from [here](https://sourceforge.net/projects/mingw/files/Installer/)(mingw32-base,mingw32-gcc-g++) 
+* install Microsoft Visual Studio Express [here]()
+* try nmake in command line ? 
+* try make in command line ? 
+
+	pip install git+git://github.com/martinResearch/PyIPOL.git
+	
+Using only cython bindingsmay help to avoid the need to install visual studio express or MinGW ? 
 
 ## Mac OS
 
