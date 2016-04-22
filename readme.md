@@ -59,25 +59,10 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 	* Chan-Vese Segmentation [on IPOL](http://www.ipol.im/pub/art/2012/g-cv/)	
 	* LSD: a Line Segment Detector [on IPOL](http://www.ipol.im/pub/art/2015/35/)
 
-
-
-
-# Related projects
-* the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://githua matlb.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
-* Some Matlab interfaces to IPOL algorithms written by [Paul-Darius Sarmadi](http://sarmadi.fr/mex-ipol-library/) during a summer internship in 2014 are available [here](https://github.com/Paul-Darius/ipol-matlab). This project contains a report with guidelines to make IPOL code that can easily be interfaced with MATLAB.
-
-# Limitations and possible improvements
-
-* IPOL now  accepts Matlab code. We will have to call an octave interpreter from python.
-
-* When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. (NOTE: the visible python interface must be independent to the underlying technique for the binding.  Thus, even if the algorithms are called internally by direct c/python bindings or using temporary files, the interface is *exactly* the same.  Designing this interface is an entirely independent task than implementeing it.  The interface is more important than the implementation, thus we may start by the simplest possible implementation). 
-* As we do not store the C++ code in the repository, modifications in the compressed files on IPOL may break the bindings. We may need to store the IPOL codes in an other Git repository (or another branch?) to make things more robust.  (NOTE: this cannot happen, because the compressed files in ipol are frozen and will never change).
-* We could provide some PyQt widgets and some python tools provide an user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters. (NOTE: ok, but this should be a separate project.  The python binding should be useful in a headless server without Qt libraries).
-
 # Examples 
 
 
-you can run an eample directly from python 
+you can run an example directly from python 
 
  	import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_Implementation.examples as ex
 	ex.example()
@@ -96,12 +81,28 @@ you can run all the examples using
 	ipol.wrappers.run_all_examples()
 
 
+
+# Related projects
+* the IPOL in-browser demos can be downloaded an run locally using a local cherrypy based server and the code [here](https://githua matlb.com/carlodef/ipol_demo). Maybe that code could be used to help to write the python interfaces.
+* Some Matlab interfaces to IPOL algorithms written by [Paul-Darius Sarmadi](http://sarmadi.fr/mex-ipol-library/) during a summer internship in 2014 are available [here](https://github.com/Paul-Darius/ipol-matlab). This project contains a report with guidelines to make IPOL code that can easily be interfaced with MATLAB.
+
+# Limitations and possible improvements
+
+* IPOL now  accepts Matlab code. We will have to call an octave interpreter from python.
+
+* When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. (NOTE: the visible python interface must be independent to the underlying technique for the binding.  Thus, even if the algorithms are called internally by direct c/python bindings or using temporary files, the interface is *exactly* the same.  Designing this interface is an entirely independent task than implementeing it.  The interface is more important than the implementation, thus we may start by the simplest possible implementation). 
+* As we do not store the C++ code in the repository, modifications in the compressed files on IPOL may break the bindings. We may need to store the IPOL codes in an other Git repository (or another branch?) to make things more robust.  (NOTE: this cannot happen, because the compressed files in ipol are frozen and will never change).
+* We could provide some PyQt widgets and some python tools provide an user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters. (NOTE: ok, but this should be a separate project.  The python binding should be useful in a headless server without Qt libraries).
+
+
+
 # troubleshooting
 
 
-if you get an error like ImportError: /usr/lib/python2.7/dist-packages/cv2.so: undefined symbol: _ZN2cv23adaptiveBilateralFilterERKNS_11_InputArrayERKNS_12_OutputArrayENS_5Size_IiEEddNS_6Point_IiEEi
+* if you get an error like ImportError: /usr/lib/python2.7/dist-packages/cv2.so: undefined symbol: _ZN2cv23adaptiveBilateralFilterERKNS_11_InputArrayERKNS_12_OutputArrayENS_5Size_IiEEddNS_6Point_IiEEi
 you can start python as a super user.
 
+*  if you get errors with *Permission denied* when running examples you may need to run python in suer user mode. I am not sure how to change the permission of the files during the installation in order to avoid that 
 # Contributing
 
 It might be a good idea to start with the most cited IPOL articles [see here](https://scholar.google.fr/citations?user=LFdvV4YAAAAJ)
