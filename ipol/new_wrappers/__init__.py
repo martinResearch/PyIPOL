@@ -1,11 +1,13 @@
 import os
 from . import *
+import imp
 
 def _list_wrappers():
 	d=os.path.dirname(__file__)
-	return [o for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
+	return [o for o in os.listdir(d) if os.path.isdir(os.path.join(d,o)) and o!='new_paper_example']
 
 __all__= _list_wrappers()
+
 
 def _list_wrappers_paths():
 	"""get the list of available wrappers"""

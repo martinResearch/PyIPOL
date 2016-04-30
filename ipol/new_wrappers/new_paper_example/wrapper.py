@@ -4,15 +4,14 @@ from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
+from install import source_directory
 
 
 string="""Automatic Color Enhancement (ACE) and its Fast Implementation
-Pascal Getreuer"""
+Pascal Getreuer""" # todo: put the name of the paper you are adding to PyIPOL
 
 path=os.path.dirname(__file__)
 
-exec_folder=tools.extraction_directory+'/ace_20121029'
-source_directory=exec_folder
 
 def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpeg_quality=100):
 
@@ -34,15 +33,16 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
                   poly:#   polynomial s_a with degree #
    
      -q <number>  quality for saving JPEG images (0 to 100)
-   """
+   """# todo : copy the documentation from the C++ file
+  
+   # todo: create temporary files names for unput and outputs that are files for the executable (images for example)
+   # and save input images 
 
-   #saving input image to a temporary file
-   output_file=tempfile.mkstemp('.PNG')[1]
-   
-   temp_image_file =tempfile.mkstemp('.PNG')[1]
+   output_file=tempfile.mkstemp('.PNG')[1]   
+   temp_image_file =tempfile.mkstemp('.PNG')[1] 
    imsave(temp_image_file,image)
 
-
+   # todo : generate the command to execute the executable with the right options
    if method=='interp':
       method_str='interp:%d'%levels
       assert(degree is None)
@@ -54,22 +54,19 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    else:
       omega_str=omega
       assert(sigma is None)
-   command=exec_folder+'/ace -a %f -w %s -m %s %s %s'%(alpha,omega_str,method_str,temp_image_file,output_file)
+   command=source_directory+'/ace -a %f -w %s -m %s %s %s'%(alpha,omega_str,method_str,temp_image_file,output_file)
       
    # calling the executable
    os.system( command)   
-   #reading the output from the temporary file
+
+   #todo: read the output from the temporary file
    output=imread(output_file)  
+
+   # todo : delete the temporary files
    os.remove(output_file)
-
    os.remove(temp_image_file)
+
    return output
-
-
-if __name__ == '__main__':
-   import sys    
-   _install()
-
 
 
 
