@@ -125,38 +125,43 @@ It might be a good idea to start with the most cited IPOL articles [see here](ht
 ## Wrapping the executable 
 The easiest way to create interface to some IPOL code is to call an executable with temporary files.
 
+* fork the project on github
 
-* get a copy of the repository 
+* get a local copy of the repository 
 
-		git clone https://github.com/martinResearch/PyIPOL.git
-
-
-* copy one of the existing wrapper  PyIPOL/wrappers that does not use cython (no pxd and pyx files)
-
-* move all the other wrappers in a different folder such that the folder wrapper contain only the new wrapper, which will speedup subsequent tests
-	
- 
-* modify the  content of the files in order to put the right zip file url etc. 
+		git clone https://github.com/yourUserName/PyIPOL.git
 
 
-* test the installation
 
-		PyIPOL$ sudo setup.py install
+* make a copy of the folder  PyIPOL/new_wrappers/new_paper_example in PyIPOL/new_wrappers and rename it with the name of you paper replacing spaces but underscore and removing special characters 
 
-* test the PyIPOL installation locally and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
+* modify the  content of the file install.py in order to put the right string for the name of the paper, the right url for the zip file containing the c++ code for that paper , the right subfolder name obtained after the zip decompression (the name of the directory in the zip file) in the variable *exec_folder*, and the right compilation line (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
 
+* test the installation in place
+
+		PyIPOL/new_wrappers$ python test_install 
+
+	you should have the source code and the compiler executable in a subfolder of *PyIPOL/ipol/csources*
 		
+* edit example.py by replacing the string *new_paper_name* by the name of your paper's folder (paper name with the underscores), modify the content of wrapper.py and examples.py until it works using the following line.
+		
+		PyIPOL/new_wrappers$ python test_wrapper.py
+
+* example.py by replacing the string *new_wrappers* by *wrappers* and move your new wrapper into the folder *PyIPOL/wrappers*
+
+* test the PyIPOL installation and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
+
+		path/PyIPOL$ sudo python setup.py install
 	 	path/PyIPOL$ cd ..
 		path$  python
 		>>> import ipol
 		>>> import ipol.wrappers.my_wrapper_name.examples as ex
 		>>> ex.example()
 	 
-maybe this process could be further accelerated reusing the online demos python codes available [here](http://dev.ipol.im/git/?p=colom/ipol_demo.git;a=summary). 
 
 ## Using Cython
 
-follow the same methodology as in the previous section but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files)
+follow the same methodology as in the previous section but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files) 
 
 
 
