@@ -37,6 +37,7 @@ if get_build_platform() in ('win32', 'win-amd64'):
 else:
 	extra_compile_args+=['-lfftw3f']
 	libraries+=['fftw3f']
+	libraries+=['libpng']
 
 
 if __name__ == '__main__':

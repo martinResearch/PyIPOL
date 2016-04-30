@@ -1,6 +1,5 @@
 from scipy.misc import imsave,imread
-#import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_Implementation as wrapper
-import wrapper
+import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_ImplementationCython as wrapper
 import matplotlib.pyplot as plt
 
 def example():

@@ -4,7 +4,11 @@ from scipy.misc import imsave,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
-from install import source_directory
+
+
+# todo: replace the followin string  by the name of the folder in the zip file
+zip_subfolder='ace_20121029'
+source_directory=os.path.join(tools.extraction_directory,zip_subfolder) 
 
 
 string="""Automatic Color Enhancement (ACE) and its Fast Implementation

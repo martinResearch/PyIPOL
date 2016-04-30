@@ -1,7 +1,7 @@
 import tempfile   
 import os
 from scipy.misc import imsave,imread
-import ipol.tools as tools
+import  tools
 import subprocess
 import glob
 from subprocess import Popen, PIPE, STDOUT

@@ -53,6 +53,54 @@ def read_animated_gif(file):
 	return images
 
 
+import os
 
+import imp
+
+wrappers_path=os.path.join(os.path.dirname(__file__),'wrappers')
+
+def _list_wrappers(path=None):
+	if path is None:
+		path=wrappers_path
+	d=path
+	return [o for o in os.listdir(d) if os.path.isdir(os.path.join(d,o)) and o!='new_paper_example']
+
+__all__= _list_wrappers()
+
+def _list_wrappers_paths(path=None):
+	"""get the list of available wrappers"""
+	print path
+	import glob
+	import os
+	import sys
+	if path is None:
+		path=wrappers_path
+
+	return [os.path.join(path,p) for p in _list_wrappers(path)]
+	
+	
+def _install(filename):
+	
+		if os.path.isfile(os.path.join(filename,'setup.py')):#cython binding
+			os.system('cd %s;python setup.py build_ext --inplace'%filename)
+			#execfile(' %s/setup.py '%filename,[build_ext --inplace])
+		else:	
+			filew=os.path.join(filename,'install.py')
+			if not os.path.isfile(filew):
+				raise Exception('file %s not found'%filew)
+				
+			foo = imp.load_source('temp_module',filew)	
+			foo._install()	
+
+def _install_all(path=None):
+	"""download and compile code for all the wrappers"""
+	print 'coucou'
+	l=_list_wrappers_paths(path)
+	import sys 
+	import imp
+	import os
+	for filename in l:
+		_install(filename)
+		
 
 

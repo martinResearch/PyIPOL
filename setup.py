@@ -17,8 +17,8 @@ __version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 # installing each wrapper 
 import sys
 sys.path.append("./ipol")
-import wrappers
-wrappers._install_all()
+from tools import _install_all
+_install_all()
 
 import os
 paths=['ipol/csources','ipol/examples','ipol/wrappers']
