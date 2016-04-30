@@ -1,19 +1,26 @@
-__all__= ['A_Review_of_Classic_Edge_Detectors','Automatic_Color_Enhancement_and_its_Fast_Implementation']
+import os
+from . import *
 
-def list_wrappers():
+def _list_wrappers():
+	d=os.path.dirname(__file__)
+	return [o for o in os.listdir(d) if os.path.isdir(os.path.join(d,o))]
+
+__all__= _list_wrappers()
+def _list_wrappers_paths():
 	"""get the list of available wrappers"""
 	import glob
 	import os
 	import sys
 	path=os.path.dirname(__file__)
-	sys.path.append(path)
+	#sys.path.append(path)
 	#l=glob.glob(os.path.join(path,'*.py'))		
 	#return [w for w in l if os.path.basename(w) not in ['tools.py','__init__.py']]
 	return glob.glob(os.path.join(path,'*/'))
+	
 
 def _install_all():
 	"""download and compile code for all the wrappers"""
-	l=list_wrappers()
+	l=_list_wrappers_paths()
 	import sys 
 	import imp
 	import os
