@@ -134,20 +134,29 @@ The easiest way to create interface to some IPOL code is to call an executable w
 
 
 * make a copy of the folder  PyIPOL/new_wrappers/new_paper_example in PyIPOL/new_wrappers and rename it with the name of you paper replacing spaces but underscore and removing special characters 
+ 	cd PyIPOL/new_wrapper
+ 	cp new_wrapper_example name_of_you_paper_with_underscores
 
-* modify the  content of the file install.py in order to put the right string for the name of the paper, the right url for the zip file containing the c++ code for that paper , the right subfolder name obtained after the zip decompression (the name of the directory in the zip file) in the variable *exec_folder*, and the right compilation line (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
+* with the new folder, modify the  content of the file *install.py* 
+* 
+	* put the right string for the name of the paper
+	* change the right url for the zip file containing the c++ code for that paper 
+	* look at the name of the folder within the zip file and modify the end of line that set up the variable *exec_folder* in order to point to that folder after decompression of the zip file
+	* change the compilation line if needed (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
 
 * test the installation in place
 
-		PyIPOL/new_wrappers$ python test_install 
+		PyIPOL/new_wrappers$ python test_install.py 
 
 	you should have the source code and the compiler executable in a subfolder of *PyIPOL/ipol/csources*
 		
-* edit example.py by replacing the string *new_paper_name* by the name of your paper's folder (paper name with the underscores), modify the content of wrapper.py and examples.py until it works using the following line.
+* edit *example.py *by replacing the string *new_paper_name* by the name of your paper's folder (paper name the underscores)
+* modify the content of *wrapper.py* by changing the name of the function , the list of its argument, and calling the executable with the right set of arguement and temporary file names
+* modify *examples.py* to etst the new wrapping and  test it until it works using the following line:
 		
 		PyIPOL/new_wrappers$ python test_wrapper.py
 
-* example.py by replacing the string *new_wrappers* by *wrappers* and move your new wrapper into the folder *PyIPOL/wrappers*
+* edit example.py by replacing the string *new_wrappers* by *wrappers* and move your new wrapper into the folder *PyIPOL/wrappers*
 
 * test the PyIPOL installation and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
 
@@ -157,7 +166,8 @@ The easiest way to create interface to some IPOL code is to call an executable w
 		>>> import ipol
 		>>> import ipol.wrappers.my_wrapper_name.examples as ex
 		>>> ex.example()
-	 
+		
+* if that works, make a pull request on github. Thank you !
 
 ## Using Cython
 
