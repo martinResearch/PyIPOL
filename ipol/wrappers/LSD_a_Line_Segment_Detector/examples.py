@@ -14,6 +14,7 @@ def example():
 	#image =imread(im_file)# does not work with the provided pgm file :(
 
 	image=netpbmfile.imread(im_file)
+	plt.subplot(1,2,1)
 	plt.imshow(image,cmap=plt.cm.Greys_r)
 
 	segments=lsd.lsd(image)
@@ -21,6 +22,7 @@ def example():
 
 	plt.figure()
 	#plt.ion()
+	plt.subplot(1,2,2)
 	plt.imshow(image,cmap=plt.cm.Greys_r)
 	for seg in segments:
 		plt.plot(seg[[0,2]],seg[[1,3]])

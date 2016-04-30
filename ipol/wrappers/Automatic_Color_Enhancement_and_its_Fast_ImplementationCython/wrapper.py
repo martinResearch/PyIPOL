@@ -1,9 +1,10 @@
 import tempfile   
 import os
 from scipy.misc import imsave,imread
+from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
-
+import _wrapper
 
 string="""Automatic Color Enhancement (ACE) and its Fast Implementation
 Pascal Getreuer"""
@@ -14,7 +15,6 @@ exec_folder=tools.extraction_directory+'/ace_20121029'
 source_directory=exec_folder
 
 def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpeg_quality=100):
-
    """
    Usage: ace [options] input output
    
@@ -53,10 +53,15 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    else:
       omega_str=omega
       assert(sigma is None)
-   command=exec_folder+'/ace -a %f -w %s -m %s %s %s'%(alpha,omega_str,method_str,temp_image_file,output_file)
-      
-   # calling the executable
-   os.system( command)   
+   
+   options='-a %f -w %s -m %s %s %s'%(alpha,omega_str,method_str,temp_image_file,output_file)
+   if False: #using the executable
+      command=exec_folder+'/ace %s'%options
+      # calling the executable
+      os.system( command)
+   else:
+      print options.split(' ')
+      _wrapper.main(options.split(' '))
    #reading the output from the temporary file
    output=imread(output_file)  
    os.remove(output_file)
@@ -65,9 +70,6 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    return output
 
 
-if __name__ == '__main__':
-   import sys    
-   _install()
 
 
 
