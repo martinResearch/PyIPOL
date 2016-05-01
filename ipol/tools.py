@@ -20,7 +20,11 @@ extraction_directory=os.path.join(path,'csources')
 def download_and_extract(f,subfolder=''):	
 	print("downloading %s..."%f)
 
+
 	local_filename, headers = urlretrieve(f)
+	print("decompressin the zip file %s"%local_filename)
+	if not os.path.isdir(extraction_directory):
+		os.mkdir(extraction_directory)
 	if f[-3:]=='zip':
 		with zipfile.ZipFile(local_filename) as zf:
 			zf.extractall(extraction_directory+subfolder)

@@ -17,7 +17,8 @@ Pascal Getreuer""" # todo: put the name of the paper you are adding to PyIPOL
 path=os.path.dirname(__file__)
 
 
-def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpeg_quality=100):
+def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpeg_quality=100):# todo change the name of the function
+   #and the list of arguments 
 
    """
    Usage: ace [options] input output

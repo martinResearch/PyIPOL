@@ -20,7 +20,7 @@ def example():
 	segments=lsd.lsd(image)
 	print 'found '+str( segments.shape[0]),' segments'
 
-	plt.figure()
+	
 	#plt.ion()
 	plt.subplot(1,2,2)
 	plt.imshow(image,cmap=plt.cm.Greys_r)
