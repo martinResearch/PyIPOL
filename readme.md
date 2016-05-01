@@ -101,10 +101,13 @@ you can run all the examples using
 
 * IPOL now  accepts Matlab code. We will have to call an octave interpreter from python.
 
-* When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. (NOTE: the visible python interface must be independent to the underlying technique for the binding.  Thus, even if the algorithms are called internally by direct c/python bindings or using temporary files, the interface is *exactly* the same.  Designing this interface is an entirely independent task than implementeing it.  The interface is more important than the implementation, thus we may start by the simplest possible implementation). 
+* When the code has been written with files as input/outputs it might be difficult to create an nice python interface without modifying the code. Maybe using memory-mapped files could be a solution to avoid writing files to disk. However a direct interface without memory copies should be preferred when possible. (NOTE: the visible python interface must be independent of the underlying technique for the binding.  Thus, even if the algorithms are called internally by direct c/python bindings or using temporary files, the interface is *exactly* the same.  Designing this interface is an entirely independent task than implementeing it.  The interface is more important than the implementation, thus we may start by the simplest possible implementation).
+
 * As we do not store the C++ code in the repository, modifications in the compressed files on IPOL may break the bindings. We may need to store the IPOL codes in an other Git repository (or another branch?) to make things more robust.  (NOTE: this cannot happen, because the compressed files in ipol are frozen and will never change).
-* We could provide some PyQt widgets and some python tools provide an user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters. (NOTE: ok, but this should be a separate project.  The python binding should be useful in a headless server without Qt libraries).
-* we can add an optiojns to use a folder mounted in the RAM in order for the executables to read an write in RAM, for example using [this](https://gist.github.com/jcayzac/1231182) or  [this](http://stackoverflow.com/questions/4351048/how-can-i-create-a-ramdisk-in-python) on linux. But it might be difficult to make thsi system cross platform. On windows one option could be to use [ImDisk](http://imdisk.en.lo4d.com/)
+
+* We could provide some PyQt widgets and some python tools provide a user experience that is closer to the online interactive demos, with buttons and sliders to set up the parameters. (NOTE: ok, but this should be a separate project.  The python binding should be useful in a headless server without Qt libraries).
+
+* we can add an options to use a folder mounted in the RAM in order for the executables to read an write in RAM, for example using [this](https://gist.github.com/jcayzac/1231182) or  [this](http://stackoverflow.com/questions/4351048/how-can-i-create-a-ramdisk-in-python) on linux. But it might be difficult to make this system cross platform. On windows, one option could be to use [ImDisk](http://imdisk.en.lo4d.com/)
 
 # troubleshooting
 
@@ -121,7 +124,7 @@ It might be a good idea to start with the most cited IPOL articles [see here](ht
 
 
 
-## Wrapping the executable 
+### Wrapping an executable 
 The easiest way to create interface to some IPOL code is to call an executable with temporary files.
 
 * fork the project on github
@@ -138,9 +141,8 @@ The easiest way to create interface to some IPOL code is to call an executable w
 	 	cp new_wrapper_example name_of_you_paper_with_underscores
 
 * with the new folder, modify the  content of the file *install.py* 
-	* put the right string for the name of the paper
 	* change the right url for the zip file containing the c++ code for that paper 
-	* look at the name of the folder within the zip file and modify the end of line that set up the variable *exec_folder* in order to point to that folder after decompression of the zip file
+	* look at the name of the folder within the zip file and modify the end of line that set up the variable *zip_subfolder* in order to point to that folder after decompression of the zip file
 	* change the compilation line if needed (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
 
 * test the installation in place
@@ -157,7 +159,7 @@ The easiest way to create interface to some IPOL code is to call an executable w
 
 * edit *example.py* by replacing the string *new_wrappers* by *wrappers* and move your new wrapper into the folder *PyIPOL/wrappers*.
 
-* test the PyIPOL installation and the examples without beeing in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
+* test the PyIPOL installation and the examples without being in th PyIPOL folder (in order to test the version that is copied in /usr/local/lib/python2.7/dist-packages/ and check that nothing breaks because of wrong relative paths)
 
 		path/PyIPOL$ sudo python setup.py install
 	 	path/PyIPOL$ cd ..
@@ -166,33 +168,36 @@ The easiest way to create interface to some IPOL code is to call an executable w
 		>>> import ipol.wrappers.my_wrapper_name.examples as ex
 		>>> ex.example()
 		
-* if that works, make a pull request on github. Thank you !
+* if that works, push on github and try to reinstall ipol from your repo and run all the examples
+	sudo pip unsintall ipol
+	sudo pip install git+git://github.com/yourGithubUserName/PyIPOL.git
+	sudo python
+	import ipol.wrappers
+	ipol.wrappers.run_all_examples()
 
-## Using Cython
+* if that works make a pull request on github. Thank you !
 
-follow the same methodology as in the previous section but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files) 
+### Using Cython
+
+follow the same methodology as in the previous section, but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files) 
 
 
 
 ## TODOS
 
 * delete temporary files when not needed anymore
-
-* improve the modules intialization files to get a better autocompletion in wingide or ipython
-
+* improve the module initialization files to get a better autocompletion in wingide or ipython
 * improve the autocompletion for function wrapped with cython
-
-* put the cython code in separated cython files for each paper 
-
-* may put the python code for each paper in a sperate folder
+* put the cython code in separate cython files for each paper 
+* may put the python code for each paper in a seperate folder
 
 ## Guidelines for IPOL code
 
-* **provide an executable that performs the task without access to the ground truth**: In some cases the executable does not provide a direct access to the method. For example the code for [BM3D](http://www.ipol.im/pub/art/2012/l-bm3d) does not provide an executable that take a noisy image as an input and denoise it. Instead it take a ground truth image that isn't noisy, add some noise to it and compare the denoised image with the ground truth image. While it is usefull for research purpose, it is useless from a pratical point of view: in practice we do not have access to the ground truth when we want to denoise an image. 
+* **provide an executable that performs the task without access to the ground truth**: In some cases the executable does not provide a direct access to the method. For example the code for [BM3D](http://www.ipol.im/pub/art/2012/l-bm3d) does not provide an executable that takes a noisy image as an input and denoise it. Instead, it takes a ground truth image that isn't noisy, add some noise to it and compares the denoised image with the ground truth image. While it is useful for research purpose, it is useless from a practical point of view because in practice we do not have access to the ground truth when we want to denoise an image. 
 
-* **take temporary folder as input**: if your executable generates files without giving control of the names to the user, make it possible for the user to specify a folder where these files will be generated (example  measures.txt generated by the NL-bayes denoising method). We can use a trick for now which consists in moving in a temporary folder before calling the executable but this seems not very elegant.
+* **take temporary folder as input**: if your executable generates files without giving control of the names to the user, make it possible for the user to specify a folder where these files will be generated (example  measures.txt generated by the NL-bayes denoising method). We can use a trick for now which consists in moving in a temporary folder before calling the executable, but this is not very elegant.
 
-* **seperate algorithm omplementation from file I/O and options parsing**: this will make cython binding easier to code by avoiding the need of patching the C++ code. This is standard good practice in programming  is already given as a recommendation in the IPOL software guidelines, in section 4.3:c.
+* **separate the algorithm implementation from file I/O and options parsing**: this will make the cython binding easier to code by avoiding the need of patching the C++ code. This is a standard of good practice in programming and it is already given as a recommendation in the IPOL software guidelines, in section 4.3:c.
 
 
 
