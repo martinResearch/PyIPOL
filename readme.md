@@ -168,7 +168,14 @@ The easiest way to create interface to some IPOL code is to call an executable w
 		>>> import ipol.wrappers.my_wrapper_name.examples as ex
 		>>> ex.example()
 		
-* if that works, make a pull request on github. Thank you !
+* if that works, push on github and try to reinstall ipol from your repo and run all the examples
+	sudo pip unsintall ipol
+	sudo pip install git+git://github.com/yourGithubUserName/PyIPOL.git
+	sudo python
+	import ipol.wrappers
+	ipol.wrappers.run_all_examples()
+
+* if that works make a pull request on github. Thank you !
 
 ### Using Cython
 
