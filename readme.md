@@ -61,9 +61,11 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 
 * Inpainting
 	* Variational Framework for Non-Local Inpainting [on IPOL](http://www.ipol.im/pub/art/2015/136/)
+	
 * Image comparison
 	* An Analysis of the SURF Method [on IPOL](http://www.ipol.im/pub/art/2015/69/)
 	* ASIFT: An Algorithm for Fully Affine Invariant Comparison [on IPOL](http://www.ipol.im/pub/art/2011/my-asift/)
+	
 * Optical Flow
 	* TV-L1 Optical Flow Estimation [on IPOL](http://www.ipol.im/pub/art/2013/26/)
 
