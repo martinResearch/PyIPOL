@@ -121,7 +121,7 @@ It might be a good idea to start with the most cited IPOL articles [see here](ht
 
 
 
-## Wrapping the executable 
+### Wrapping an executable 
 The easiest way to create interface to some IPOL code is to call an executable with temporary files.
 
 * fork the project on github
@@ -168,7 +168,7 @@ The easiest way to create interface to some IPOL code is to call an executable w
 		
 * if that works, make a pull request on github. Thank you !
 
-## Using Cython
+### Using Cython
 
 follow the same methodology as in the previous section, but copy one of the existing wrapper PyIPOL/wrappers that uses cython (with pxd and pyx files) 
 
