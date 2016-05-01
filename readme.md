@@ -61,7 +61,9 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 
 * Inpainting
 	* Variational Framework for Non-Local Inpainting [on IPOL](http://www.ipol.im/pub/art/2015/136/)
-
+* Image comparison
+	* An Analysis of the SURF Method [on IPOL](http://www.ipol.im/pub/art/2015/69/)
+	* ASIFT: An Algorithm for Fully Affine Invariant Comparison [on IPOL](http://www.ipol.im/pub/art/2011/my-asift/)
 * Optical Flow
 	* TV-L1 Optical Flow Estimation [on IPOL](http://www.ipol.im/pub/art/2013/26/)
 
@@ -167,6 +169,8 @@ The easiest way to create interface to some IPOL code is to call an executable w
 		>>> import ipol
 		>>> import ipol.wrappers.my_wrapper_name.examples as ex
 		>>> ex.example()
+		
+* add the paper in the list of bindings in the readme.md file
 		
 * if that works, push on github and try to reinstall ipol from your repo and run all the examples
 	sudo pip unsintall ipol
