@@ -141,9 +141,8 @@ The easiest way to create interface to some IPOL code is to call an executable w
 	 	cp new_wrapper_example name_of_you_paper_with_underscores
 
 * with the new folder, modify the  content of the file *install.py* 
-	* put the right string for the name of the paper
 	* change the right url for the zip file containing the c++ code for that paper 
-	* look at the name of the folder within the zip file and modify the end of line that set up the variable *exec_folder* in order to point to that folder after decompression of the zip file
+	* look at the name of the folder within the zip file and modify the end of line that set up the variable *zip_subfolder* in order to point to that folder after decompression of the zip file
 	* change the compilation line if needed (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
 
 * test the installation in place
