@@ -1,0 +1,9 @@
+
+*.c
+*.so
+*.py~
+*.pyc
+*.pxd~
+*.pyx~
+*/csources/
+.gitignore~
