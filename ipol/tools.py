@@ -73,7 +73,7 @@ __all__= _list_wrappers()
 
 def _list_wrappers_paths(path=None):
 	"""get the list of available wrappers"""
-	print path
+	print(path)
 	import glob
 	import os
 	import sys
@@ -98,7 +98,7 @@ def _install(filename):
 
 def _install_all(path=None):
 	"""download and compile code for all the wrappers"""
-	print 'coucou'
+	print('coucou')
 	l=_list_wrappers_paths(path)
 	import sys 
 	import imp

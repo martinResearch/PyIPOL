@@ -1,7 +1,7 @@
-from wrappers import *
+from ipol.wrappers import *
 from .version import __version__
 import os
-import tools
-import thirdparties
+import ipol.tools
+import ipol.thirdparties
 
-path=os.path.dirname(__file__)
+path = os.path.dirname(__file__)

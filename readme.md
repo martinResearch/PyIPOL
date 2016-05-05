@@ -139,23 +139,23 @@ The easiest way to create interface to some IPOL code is to call an executable w
 
 
 
-* make a copy of the folder  PyIPOL/new_wrappers/new_paper_example in PyIPOL/new_wrappers and rename it with the name of you paper replacing spaces but underscore and removing special characters 
+* make a copy of the folder  PyIPOL/new_wrappers/new_paper_example in PyIPOL/new_wrappers and rename it with the name of the paper you are adding, replacing spaces by underscore and removing special characters 
 	
 	 	cd PyIPOL/new_wrapper
 	 	cp new_wrapper_example name_of_you_paper_with_underscores
 
 * with the new folder, modify the  content of the file *install.py* 
-	* change the right url for the zip file containing the c++ code for that paper 
-	* look at the name of the folder within the zip file and modify the end of line that set up the variable *zip_subfolder* in order to point to that folder after decompression of the zip file
+	* change the url of the zip file containing the c++ code for that paper 
+	* look at the name of the folder within the zip file and modify the end of the line that set up the variable *zip_subfolder* in order to point to that folder after decompression of the zip file
 	* change the compilation line if needed (often *make -f makefile.gcc*, look at the readme in the source zip file for that paper)
 
 * test the installation in place
 
 		PyIPOL/new_wrappers$ python test_install.py 
 
-	you should have the source code and the compiler executable in a subfolder of *PyIPOL/ipol/csources*
+	you should have the source code and the compiled executable in a subfolder of *PyIPOL/ipol/csources*
 		
-* edit *example.py* by replacing the string *new_paper_name* by the name of your paper name with the underscores.
+* edit *example.py* by replacing the string *new_paper_name* by the name of the name of the paper you are adding with the underscores.
 * modify the content of *wrapper.py* by changing the name of the function , the list of its argument, and calling the executable with the right set of arguments and temporary file names.
 * modify *examples.py* to test the new wrapper and test it until it works using the following line:
 		
