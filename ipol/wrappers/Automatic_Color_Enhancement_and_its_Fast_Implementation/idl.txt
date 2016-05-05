@@ -1,0 +1,23 @@
+[info]
+name = ace
+longname = Automatic Color Enhancement
+authors = Pascal Getreuer
+
+[input]
+in : image
+alpha : number = 1
+omega : string = "1/r", "1", "G:3"
+method : string = "interp:3", "poly:3"
+
+[output]
+out : image
+
+[build]
+wget http://www.ipol.im/pub/art/2012/g-ace/ace_20121029.tar.gz
+tar zxf ace_20121029.tar.gz
+cd ace_20121029
+make -f makefile.gcc
+cp ace $BIN
+
+[run]
+ace -a $alpha -w $omega -m $method $in $out
