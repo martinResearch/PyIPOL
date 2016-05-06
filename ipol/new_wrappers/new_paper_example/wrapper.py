@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import tempfile   
 import os
 from scipy.misc import imsave,imread

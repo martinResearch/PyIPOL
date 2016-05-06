@@ -68,11 +68,15 @@ we are using the same categorization as [IPOL](http://www.ipol.im/)
 	
 * Optical Flow
 	* TV-L1 Optical Flow Estimation [on IPOL](http://www.ipol.im/pub/art/2013/26/)
+	* Robust Optical Flow Estimation [on IPOL](http://www.ipol.im/pub/art/2013/21/)
 
 * Segmentation and Edges
 	* A Review of Classic Edge Detectors [on IPOL](http://www.ipol.im/pub/art/2012/gjmr-lsd/)
 	* Chan-Vese Segmentation [on IPOL](http://www.ipol.im/pub/art/2012/g-cv/)	
 	* LSD: a Line Segment Detector [on IPOL](http://www.ipol.im/pub/art/2015/35/)
+
+* Stereovision
+	* Stereo Disparity through Cost Aggregation with Guided Filter [on IPOL](http://www.ipol.im/pub/art/2014/78/)
 
 # Examples 
 
