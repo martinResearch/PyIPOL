@@ -191,11 +191,10 @@ follow the same methodology as in the previous section, but copy one of the exis
 
 ## TODOS
 
-* delete temporary files when not needed anymore
 * improve the module initialization files to get a better autocompletion in wingide or ipython
-* improve the autocompletion for function wrapped with cython
-* put the cython code in separate cython files for each paper 
-* may put the python code for each paper in a seperate folder
+* make it work on windows
+* test it on mac OS
+
 
 ## Guidelines for IPOL code
 
