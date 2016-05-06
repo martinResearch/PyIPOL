@@ -25,15 +25,16 @@ local installation
 	
 Installing only a subset of the papers:
 
-	* download the zip file
+* download the zip file
 
 		wget https://github.com/martinResearch/PyIPOL/archive/master.zip --no-check-certificate
 		unzip master.zip 
 		cd PyIPOL-master
 	
-	* remove from the subfolder ipol/wrappers all the papers you do not want to keep
+* remove from the subfolder ipol/wrappers all the papers you do not want to keep
 		
-	* install using 
+* install using 
+	
 		sudo python setup.py install
 		
 
