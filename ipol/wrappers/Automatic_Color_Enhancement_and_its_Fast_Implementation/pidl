@@ -103,11 +103,13 @@ def ipol_call_interface(outie, p, args):
 		f.write("export in=%s\n" % args[0])
 		f.write("export out=%s\n" % outie[0])
 		f.writelines(["%s\n" % i  for i in p['run']])
+	import subprocess
+	subprocess.run(". %s" % callscript, shell=True)
 
 
 
 p = ipol_parse_idl("idl.txt")
-#ipol_build_interface(p)
+ipol_build_interface(p)
 ipol_call_interface(["/home/coco/xxx.png"], p, ["/tmp/lenac.png"])
 
 # vim: sw=8 ts=8 sts=0 noexpandtab:
