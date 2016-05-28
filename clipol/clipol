@@ -86,7 +86,7 @@ def ipol_build_interface(p):
 	with open(buildscript, "w") as f:
 		f.write("export BIN=%s\n" % bindir)
 		f.writelines(["%s\n" % i  for i in p['build']])
-	subprocess.run(". %s" % buildscript, shell=True)
+	subprocess.call(". %s" % buildscript, shell=True)
 
 def ipol_is_built(p):
 	name = p['info']['name']
@@ -170,8 +170,8 @@ def ipol_call_matched(p, m):
 		f.write("export PATH=%s:$PATH\n" % bindir)
 		f.writelines(["%s\n" % Template(i).safe_substitute(m)
 		              for i in p['run']])
-	subprocess.run("pwd;cat %s" % callscript, shell=True)
-	subprocess.run(". %s" % callscript, shell=True)
+	subprocess.call("pwd;cat %s" % callscript, shell=True)
+	subprocess.call(". %s" % callscript, shell=True)
 
 def main_article(argv):
 	x = argv[0]

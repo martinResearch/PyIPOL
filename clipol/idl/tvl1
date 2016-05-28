@@ -14,5 +14,9 @@ out = image
 make
 cp tvl1flow $BIN
 
+[build:OpenBSD]
+make CC="cc -std=c99" OMPFLAGS="-DDISABLE_OMP"
+cp tvl1flow $BIN
+
 [run]
 tvl1flow $a $b $out
