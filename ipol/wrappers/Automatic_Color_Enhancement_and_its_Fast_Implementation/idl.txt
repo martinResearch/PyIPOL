@@ -18,4 +18,5 @@ make -f makefile.gcc
 cp ace $BIN
 
 [run]
-ace -a $alpha -w $omega -m $method $in $out
+#ace -a $alpha -w $omega -m $method $in $out
+ace $in $out
