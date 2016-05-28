@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+# tree with the parsed information
+p = {}
+
+# current config section
+c = None
+textual_sections = ("build", "run")
+
+# parse the input file into the tree "p"
+for k in open("idl.txt", "r").read().split("\n"):
+	k = k.partition("#")[0].strip()
+	if len(k) < 2: continue
+	if len(k) > 3 and k[0] == "[" and k[-1] == "]":
+		c = k[1:-1]
+		p[c] =  [] if c in textual_sections else {}
+	else:
+		if c in textual_sections:
+			p[c].append(k)
+		else:
+			key,_,value = k.partition("=")
+			p[c][key] = value
+
+
+
+print(p)
+
+
+
+# vim: sw=8 ts=8 sts=0 noexpandtab:
