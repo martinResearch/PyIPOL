@@ -1,0 +1,16 @@
+$ ipol.py
+Usage: ipol.py command options
+
+Special commands (associated to the global state):
+
+	download_idls (get from the internet
+	list (print the list of installed ipol articles)
+	status (print global database info)
+	dump X (dump all the information of article X)
+
+Regular commands (individual articles):
+	lsd in.png out.txt
+	tvl1flow a.png b.png out.flo [options]
+	hsflow a.png b.png out.flo [options]
+	ace in.png out.png [options]
+	...

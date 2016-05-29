@@ -108,7 +108,7 @@ def ipol_call_interface(outie, p, args):
 
 
 
-p = ipol_parse_idl("idl.txt")
+p = ipol_parse_idl("ace.idl")
 ipol_build_interface(p)
 ipol_call_interface(["/home/coco/xxx.png"], p, ["/tmp/lenac.png"])
 
