@@ -56,15 +56,9 @@ def ipol_build_interface(p):
 	os.makedirs("%s/bin" % mycache)
 	os.makedirs("%s/tmp" % mycache)
 
-	import sys
-	if sys.version_info[0] == 2:
-		from urllib import urlretrieve
-	else:
-		from urllib.request import urlretrieve
-
-	mysrc = "%s/dl/src.tar.gz" % mycache
-	urlretrieve(srcurl, mysrc)
-	shutil.unpack_archive(mysrc, "%s/src" % mycache)
+	os.system("wget -P %s/dl %s" % (mycache, srcurl))
+	mysrc = os.listdir("%s/dl" % mycache)[0]
+	shutil.unpack_archive("%s/dl/%s" % (mycache,mysrc), "%s/src" % mycache)
 
 	l = os.listdir("%s/src" % mycache)
 	if len(l) != 1:
@@ -108,8 +102,12 @@ def ipol_call_interface(outie, p, args):
 
 
 
-p = ipol_parse_idl("ace.idl")
+p = ipol_parse_idl("lsd.idl")
 ipol_build_interface(p)
-ipol_call_interface(["/home/coco/xxx.png"], p, ["/tmp/lenac.png"])
+ipol_call_interface(["/home/coco/xxx.txt"], p, ["/tmp/lenac.png"])
+
+#q = ipol_parse_idl("ace.idl")
+#ipol_build_interface(q)
+#ipol_call_interface(["/home/coco/xxx.png"], q, ["/tmp/lenac.png"])
 
 # vim: sw=8 ts=8 sts=0 noexpandtab:

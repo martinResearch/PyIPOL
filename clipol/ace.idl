@@ -8,7 +8,7 @@ src = http://www.ipol.im/pub/art/2012/g-ace/ace_20121029.tar.gz
 in = image
 alpha = number : 5
 omega = string : "1/r", "1", "G:3"
-method = string : "interp:3", "poly:3"
+method = string : "interp:3", "poly:3", "interp:5", "poly:5"
 
 [output]
 out = image

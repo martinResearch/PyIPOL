@@ -1,0 +1,18 @@
+[info]
+name = lsd
+longname = Line Segment Detector
+src = http://www.ipol.im/pub/art/2012/gjmr-lsd/lsd_1.6.zip
+
+[input]
+in = image
+
+[output]
+out = text
+
+[build]
+make
+cp lsd $BIN
+
+[run]
+convert $in x.pgm
+lsd x.pgm $out
