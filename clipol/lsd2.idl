@@ -1,0 +1,29 @@
+[info]
+name = lsd2
+longname = Line Segment Detector (fancier)
+src = http://www.ipol.im/pub/art/2012/gjmr-lsd/lsd_1.6.zip
+
+[input]
+in = image
+scale = number : 0.8
+sigma_coef = number : 0.6
+quant = number : 2
+ang_th = number : 22.5
+log_eps = number : 0
+density_th = number : 0.7
+n_bins = number : 1024
+ls_width = number : 0
+
+[output]
+out = text
+reg = image : optional
+epsfile = image : optional
+svgfile = image : optional
+
+[build]
+make
+cp lsd $BIN
+
+[run]
+convert $in x.pgm
+lsd x.pgm $out -s $scale -c $sigma_coef -q $quant -a $ang_th -e $log_eps -d $density_th -b $n_bins

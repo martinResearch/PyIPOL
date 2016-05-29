@@ -7,8 +7,10 @@ src = http://www.ipol.im/pub/art/2012/g-ace/ace_20121029.tar.gz
 [input]
 in = image
 alpha = number : 5
-omega = string : "1/r", "1", "G:3"
-method = string : "interp:3", "poly:3", "interp:5", "poly:5"
+omega = string : 1/r
+method = string : interp:5
+
+#name = type : default
 
 [output]
 out = image
@@ -18,5 +20,4 @@ make -f makefile.gcc
 cp ace $BIN
 
 [run]
-#ace -a $alpha -w $omega -m $method $in $out
-ace $in $out
+ace -a $alpha -w $omega -m $method $in $out
