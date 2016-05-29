@@ -5,6 +5,7 @@ import sys
 import uuid
 import shutil
 import subprocess
+import collections
 from string import Template
 
 
@@ -29,7 +30,7 @@ def ipol_parse_idl(f):
 	"""
 
 	# tree with the parsed information
-	p = {}
+	p = collections.OrderedDict()
 
 	# current config section
 	c = None
@@ -41,7 +42,10 @@ def ipol_parse_idl(f):
 		if len(k) < 2: continue
 		if len(k) > 3 and k[0] == "[" and k[-1] == "]":
 			c = k[1:-1]
-			p[c] =  [] if c in textual_sections else {}
+			if c in textual_sections:
+				p[c] = []
+			else:
+				p[c] = collections.OrderedDict()
 		else:
 			if c in textual_sections:
 				p[c].append(k)
@@ -148,7 +152,6 @@ def get_random_key():
 	return uuid.uuid4().hex.upper()
 
 
-# unused function, to store previous functionality
 def ipol_call_matched(p, m):
 	if not ipol_is_built(p):
 		ipol_build_interface(p)
@@ -178,19 +181,23 @@ def main_article(argv):
 	p = ipol_parse_idl(x_idl)
 	#print("Is built = %s" % str(ipol_is_built(p)))
 	if not ipol_is_built(p):
-		return 1 #ipol_build_interface(p)
+		ipol_build_interface(p)
 	# compulsory, positional parameters
 	nb_in, nb_out = ipol_signature(p)
 	#print("signature = %d %d" % (nb_in, nb_out))
 	args_nop,args_yes = ipol_partition_args(argv[1:])
-	#print("args_nop = %s" % args_nop)
-	#print("args_yes = %s" % args_yes)
+
+	# TODO: hide these details under the "--raw" option
+	hypobin = "%s/bin/%s" % (x_cache, x)
+	if len(args_nop) == 0 and os.path.exists(hypobin):
+		subprocess.run(hypobin, shell=True)
+		return 0
+
+	print("args_nop = %s" % args_nop)
+	print("args_yes = %s" % args_yes)
 	mp = ipol_matchpars(p,args_nop,args_yes)
 	#print("matched args:\n%s" % mp)
-	if len(args_nop) == nb_in + nb_out and nb_in==1 and nb_out==1:
-		files_in = [argv[1]]
-		files_out = [argv[2]]
-	#	print("tot bé (%s => %s)" % (files_in, files_out))
+	if len(args_nop) == nb_in + nb_out:
 		ipol_call_matched(p, mp)
 	else:
 		fail("signatures mismatch")
@@ -222,6 +229,36 @@ def main_dump(x):
 	print(p)
 	return 0
 
+def main_info(x):
+	config_dir = IPOL_CONFIG
+	config_x = "%s/idl/%s" % (config_dir, x)
+	p = ipol_parse_idl(config_x)
+	print("NAME:\t\"%s\" %s" % (p["info"]["name"], p["info"]["longname"]))
+	print("INPUT:", end="")
+	for k,v in p['input'].items():
+		print("\t%s = %s" % (k,v))
+	print("OUTPUT:", end="")
+	for k,v in p['output'].items():
+		print("\t%s = %s" % (k,v))
+	print("RAW:", end="")
+	for l in p['run']:
+		print("\t%s" % l)
+	print("USAGE:\t%s" % p["info"]["name"], end="")
+	for k,v in p['input'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			print(" %s" % k, end="")
+		else:
+			print(" [%s=%s]" % (k,b), end="")
+	for k,v in p['output'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			print(" %s" % k, end="")
+		else:
+			print(" [%s]" % k, end="")
+	print("")
+	return 0
+
 def main():
 	if len(sys.argv) < 2 or sys.argv[1] == "list":
 		return main_list()
@@ -229,6 +266,8 @@ def main():
 		return main_status()
 	if sys.argv[1] == "dump":
 		return main_dump(sys.argv[2]) if len(sys.argv) == 3 else 1
+	if sys.argv[1] == "info":
+		return main_info(sys.argv[2]) if len(sys.argv) == 3 else 1
 	return main_article(sys.argv[1:])
 
 if __name__ == '__main__':
