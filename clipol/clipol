@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+import os
+import sys
+import uuid
+import shutil
+import subprocess
+from string import Template
+
+
 # global configuration options
 IPOL_CACHE = "/home/coco/.cache/ipol"
 IPOL_CONFIG = "/home/coco/.config/ipol"
@@ -10,7 +18,6 @@ CALL_SCRIPT_NAME = "_ipol_call_script.sh"
 
 # print an error message and exit
 def fail(msg):
-	import sys
 	print("ERROR: %s" % msg)
 	sys.exit(42)
 
@@ -53,7 +60,6 @@ def ipol_build_interface(p):
 	print("get \"%s\" code from \"%s\"" % (name,srcurl))
 	mycache = "%s/%s" % (IPOL_CACHE, name)
 	print("cache = \"%s\"" % mycache)
-	import shutil, os
 	if os.path.exists(mycache):
 		shutil.rmtree(mycache)
 	os.makedirs(mycache)
@@ -76,13 +82,11 @@ def ipol_build_interface(p):
 	with open(buildscript, "w") as f:
 		f.write("export BIN=%s\n" % bindir)
 		f.writelines(["%s\n" % i  for i in p['build']])
-	import subprocess
 	subprocess.run(". %s" % buildscript, shell=True)
 
 def ipol_is_built(p):
 	name = p['info']['name']
 	mycache = "%s/%s" % (IPOL_CACHE, name)
-	import os
 	if not os.path.exists(mycache):
 		return False
 	bindir = "%s/bin" % mycache
@@ -141,7 +145,6 @@ def ipol_matchpars(p,pos_args,named_args):
 
 # produce a unique MD5 string
 def get_random_key():
-	import uuid
 	return uuid.uuid4().hex.upper()
 
 
@@ -154,60 +157,46 @@ def ipol_call_matched(p, m):
 	bindir = "%s/bin" % mycache
 
 	key = get_random_key()
-	print("key = %s" % key)
-	print("m = %s" % m)
+	#print("key = %s" % key)
+	#print("m = %s" % m)
 	tmpdir = "%s/tmp/%s" % (mycache, key)
-	import os
 	os.makedirs(tmpdir)
 	os.chdir(tmpdir)
 	callscript = "%s/%s" % (tmpdir, CALL_SCRIPT_NAME)
 	with open(callscript, "w") as f:
 		f.write("export PATH=%s:$PATH\n" % bindir)
-		from string import Template
-		f.writelines([Template(i).safe_substitute(m) for i in p['run']])
-	import subprocess
+		f.writelines(["%s\n" % Template(i).safe_substitute(m)
+		              for i in p['run']])
+	subprocess.run("pwd;cat %s" % callscript, shell=True)
 	subprocess.run(". %s" % callscript, shell=True)
-	#subprocess.run("pwd;cat %s;echo" % callscript, shell=True)
-
-
-
-#p = ipol_parse_idl("lsd.idl")
-#ipol_build_interface(p)
-#ipol_call_interface(["/home/coco/xxx.txt"], p, ["/tmp/lenac.png"])
-
-#q = ipol_parse_idl("ace.idl")
-#ipol_build_interface(q)
-#ipol_call_interface(["/home/coco/xxx.png"], q, ["/tmp/lenac.png"])
 
 def main_article(argv):
 	x = argv[0]
-	print("Article id = %s" % x)
+	#print("Article id = %s" % x)
 	x_idl = "%s/idl/%s" % (IPOL_CONFIG, x)
 	x_cache = "%s/%s" % (IPOL_CACHE, x)
 	p = ipol_parse_idl(x_idl)
-	print("Is built = %s" % str(ipol_is_built(p)))
+	#print("Is built = %s" % str(ipol_is_built(p)))
 	if not ipol_is_built(p):
 		return 1 #ipol_build_interface(p)
 	# compulsory, positional parameters
 	nb_in, nb_out = ipol_signature(p)
-	print("signature = %d %d" % (nb_in, nb_out))
+	#print("signature = %d %d" % (nb_in, nb_out))
 	args_nop,args_yes = ipol_partition_args(argv[1:])
-	print("args_nop = %s" % args_nop)
-	print("args_yes = %s" % args_yes)
+	#print("args_nop = %s" % args_nop)
+	#print("args_yes = %s" % args_yes)
 	mp = ipol_matchpars(p,args_nop,args_yes)
-	print("matched args:\n%s" % mp)
+	#print("matched args:\n%s" % mp)
 	if len(args_nop) == nb_in + nb_out and nb_in==1 and nb_out==1:
 		files_in = [argv[1]]
 		files_out = [argv[2]]
-		print("tot bé (%s => %s)" % (files_in, files_out))
-		#ipol_call_interface(files_out, p, files_in, [])
+	#	print("tot bé (%s => %s)" % (files_in, files_out))
 		ipol_call_matched(p, mp)
 	else:
 		fail("signatures mismatch")
 	return 0
 
 def main_status():
-	import os
 	config_dir = IPOL_CONFIG
 	config_idl = "%s/idl" % config_dir
 	idls = os.listdir(config_idl)
@@ -218,7 +207,6 @@ def main_status():
 	return 0
 
 def main_list():
-	import os
 	config_dir = IPOL_CONFIG
 	config_idl = "%s/idl" % config_dir
 	idls = os.listdir(config_idl)
@@ -235,7 +223,6 @@ def main_dump(x):
 	return 0
 
 def main():
-	import sys
 	if len(sys.argv) < 2 or sys.argv[1] == "list":
 		return main_list()
 	if sys.argv[1] == "status":
@@ -245,7 +232,6 @@ def main():
 	return main_article(sys.argv[1:])
 
 if __name__ == '__main__':
-	import sys
 	sys.exit(main())
 
 # vim: sw=8 ts=8 sts=0 noexpandtab:
