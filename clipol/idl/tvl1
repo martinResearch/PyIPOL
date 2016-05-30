@@ -1,5 +1,5 @@
 [info]
-name = tvl1flow
+name = tvl1
 longname = TVL1 Optical Flow
 src = http://www.ipol.im/pub/art/2013/26/tvl1flow_3.tar.gz
 
