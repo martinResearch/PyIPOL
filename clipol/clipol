@@ -8,10 +8,9 @@ import subprocess
 import collections
 from string import Template
 
-
 # global configuration options
-IPOL_CACHE = "/home/coco/.cache/ipol"
-IPOL_CONFIG = "/home/coco/.config/ipol"
+IPOL_CACHE = "%s/.cache/ipol" % os.path.expanduser("~")
+IPOL_CONFIG = "%s/.config/ipol" % os.path.expanduser("~")
 
 # essentially arbitrary names
 BUILD_SCRIPT_NAME = "_ipol_build_script.sh"
@@ -21,7 +20,6 @@ CALL_SCRIPT_NAME = "_ipol_call_script.sh"
 def fail(msg):
 	print("ERROR: %s" % msg)
 	sys.exit(42)
-
 
 # parse the named ipol file and return a dictionary with the acquired data
 def ipol_parse_idl(f):
@@ -53,7 +51,6 @@ def ipol_parse_idl(f):
 				key = k.partition("=")[0].strip()
 				val = k.partition("=")[2].strip()
 				p[c][key] = val
-
 	return p
 
 # download, build and cache an ipol code
@@ -121,7 +118,6 @@ def ipol_partition_args(l):
 	equal_nop = [x for x in l if "=" not in x]
 	return (equal_nop, equal_yes)
 
-
 # returns a dictionary of replacements
 def ipol_matchpars(p,pos_args,named_args):
 	args_dict = {}
@@ -146,11 +142,9 @@ def ipol_matchpars(p,pos_args,named_args):
 			r[k] = args_dict[k] if k in args_dict else b
 	return r
 
-
 # produce a unique MD5 string
 def get_random_key():
 	return uuid.uuid4().hex.upper()
-
 
 def ipol_call_matched(p, m):
 	if not ipol_is_built(p):
@@ -272,8 +266,8 @@ def main():
 		return main_info(sys.argv[1])
 	return main_article(sys.argv[1:])
 
-sys.dont_write_bytecode = True
 if __name__ == '__main__':
+	sys.dont_write_bytecode = True
 	sys.exit(main())
 
 # vim: sw=8 ts=8 sts=0 noexpandtab:
