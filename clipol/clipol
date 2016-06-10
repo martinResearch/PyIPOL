@@ -1,0 +1,273 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import uuid
+import shutil
+import subprocess
+import collections
+from string import Template
+
+# global configuration options
+IPOL_CACHE = "%s/.cache/ipol" % os.path.expanduser("~")
+IPOL_CONFIG = "%s/.config/ipol" % os.path.expanduser("~")
+
+# essentially arbitrary names
+BUILD_SCRIPT_NAME = "_ipol_build_script.sh"
+CALL_SCRIPT_NAME = "_ipol_call_script.sh"
+
+# print an error message and exit
+def fail(msg):
+	print("ERROR: %s" % msg)
+	sys.exit(42)
+
+# parse the named ipol file and return a dictionary with the acquired data
+def ipol_parse_idl(f):
+	"""
+	Read an IPOL interface description from file "f"
+	"""
+
+	# tree with the parsed information
+	p = collections.OrderedDict()
+
+	# current config section
+	c = None
+	textual_sections = ("build", "run")
+
+	# parse the input file into the tree "p"
+	for k in open(f, "r").read().split("\n"):
+		k = k.partition("#")[0].strip()
+		if len(k) < 2: continue
+		if len(k) > 3 and k[0] == "[" and k[-1] == "]":
+			c = k[1:-1]
+			if c in textual_sections:
+				p[c] = []
+			else:
+				p[c] = collections.OrderedDict()
+		else:
+			if c in textual_sections:
+				p[c].append(k)
+			else:
+				key = k.partition("=")[0].strip()
+				val = k.partition("=")[2].strip()
+				p[c][key] = val
+	return p
+
+# download, build and cache an ipol code
+def ipol_build_interface(p):
+	print("building interface \"%s\"" % p)
+	name = p['info']['name']
+	srcurl = p['info']['src']
+	print("get \"%s\" code from \"%s\"" % (name,srcurl))
+	mycache = "%s/%s" % (IPOL_CACHE, name)
+	print("cache = \"%s\"" % mycache)
+	if os.path.exists(mycache):
+		shutil.rmtree(mycache)
+	os.makedirs(mycache)
+	os.makedirs("%s/dl" % mycache)
+	os.makedirs("%s/src" % mycache)
+	os.makedirs("%s/bin" % mycache)
+	os.makedirs("%s/tmp" % mycache)
+
+	os.system("wget -P %s/dl %s" % (mycache, srcurl))
+	mysrc = os.listdir("%s/dl" % mycache)[0]
+	shutil.unpack_archive("%s/dl/%s" % (mycache,mysrc), "%s/src" % mycache)
+
+	l = os.listdir("%s/src" % mycache)
+	if len(l) != 1:
+		fail("more than one file! %s" % l)
+	srcdir = "%s/src/%s" % (mycache, l[0])
+	bindir = "%s/bin" % mycache
+	os.chdir(srcdir)
+	buildscript = "%s/%s" % (srcdir, BUILD_SCRIPT_NAME)
+	with open(buildscript, "w") as f:
+		f.write("export BIN=%s\n" % bindir)
+		f.writelines(["%s\n" % i  for i in p['build']])
+	subprocess.call(". %s" % buildscript, shell=True)
+
+def ipol_is_built(p):
+	name = p['info']['name']
+	mycache = "%s/%s" % (IPOL_CACHE, name)
+	if not os.path.exists(mycache):
+		return False
+	bindir = "%s/bin" % mycache
+	if not os.path.exists(bindir):
+		return False
+	if len(os.listdir(bindir)) < 1:
+		return False
+	return True
+
+def ipol_signature(p):
+	nb_in = 0
+	nb_out = 0
+	for k,v in p['input'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		#print("\tinpupa k(%s) a(%s) b(%s)" % (k,a,b))
+		if len(b) == 0:
+			nb_in += 1
+	for k,v in p['output'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		#print("\toutpupa k(%s) a(%s) b(%s)" % (k,a,b))
+		if len(b) == 0:
+			nb_out += 1
+	return nb_in,nb_out
+
+# split list of strings according to whether they contain "=" or not
+def ipol_partition_args(l):
+	equal_yes = [x for x in l if "="     in x]
+	equal_nop = [x for x in l if "=" not in x]
+	return (equal_nop, equal_yes)
+
+# returns a dictionary of replacements
+def ipol_matchpars(p,pos_args,named_args):
+	args_dict = {}
+	for x in named_args:
+		a,_,b = x.partition("=")
+		args_dict[a] = b
+	r = {}
+	cx = 0
+	for k,v in p['input'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			r[k] = pos_args[cx]
+			cx += 1
+		else:
+			r[k] = args_dict[k] if k in args_dict else b
+	for k,v in p['output'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			r[k] = pos_args[cx]
+			cx += 1
+		else:
+			r[k] = args_dict[k] if k in args_dict else b
+	return r
+
+# produce a unique MD5 string
+def get_random_key():
+	return uuid.uuid4().hex.upper()
+
+def ipol_call_matched(p, m):
+	if not ipol_is_built(p):
+		ipol_build_interface(p)
+	name = p['info']['name']
+	mycache = "%s/%s" % (IPOL_CACHE, name)
+	bindir = "%s/bin" % mycache
+
+	key = get_random_key()
+	#print("key = %s" % key)
+	#print("m = %s" % m)
+	tmpdir = "%s/tmp/%s" % (mycache, key)
+	os.makedirs(tmpdir)
+	os.chdir(tmpdir)
+	callscript = "%s/%s" % (tmpdir, CALL_SCRIPT_NAME)
+	with open(callscript, "w") as f:
+		f.write("export PATH=%s:$PATH\n" % bindir)
+		f.writelines(["%s\n" % Template(i).safe_substitute(m)
+		              for i in p['run']])
+	subprocess.call("pwd;cat %s" % callscript, shell=True)
+	subprocess.call(". %s" % callscript, shell=True)
+
+def main_article(argv):
+	x = argv[0]
+	#print("Article id = %s" % x)
+	x_idl = "%s/idl/%s" % (IPOL_CONFIG, x)
+	x_cache = "%s/%s" % (IPOL_CACHE, x)
+	p = ipol_parse_idl(x_idl)
+	#print("Is built = %s" % str(ipol_is_built(p)))
+	if not ipol_is_built(p):
+		ipol_build_interface(p)
+	# compulsory, positional parameters
+	nb_in, nb_out = ipol_signature(p)
+	#print("signature = %d %d" % (nb_in, nb_out))
+	args_nop,args_yes = ipol_partition_args(argv[1:])
+
+	## TODO: hide these details under the "--raw" option
+	#hypobin = "%s/bin/%s" % (x_cache, x)
+	#if len(args_nop) == 0 and os.path.exists(hypobin):
+	#	subprocess.run(hypobin, shell=True)
+	#	return 0
+
+	print("args_nop = %s" % args_nop)
+	print("args_yes = %s" % args_yes)
+	mp = ipol_matchpars(p,args_nop,args_yes)
+	#print("matched args:\n%s" % mp)
+	if len(args_nop) == nb_in + nb_out:
+		ipol_call_matched(p, mp)
+	else:
+		fail("signatures mismatch")
+	return 0
+
+def main_status():
+	config_dir = IPOL_CONFIG
+	config_idl = "%s/idl" % config_dir
+	idls = os.listdir(config_idl)
+	print('Config dir "%s" contains %d programs' % (config_dir, len(idls)))
+	cache_dir = IPOL_CACHE
+	cacs = os.listdir(cache_dir)
+	print('Cache dir "%s" contains %d programs' % (cache_dir, len(cacs)))
+	return 0
+
+def main_list():
+	config_dir = IPOL_CONFIG
+	config_idl = "%s/idl" % config_dir
+	idls = os.listdir(config_idl)
+	for x in idls:
+		p = ipol_parse_idl("%s/%s" % (config_idl, x))
+		print("\t%s\t%s" % (p['info']['name'], p['info']['longname']))
+	return 0
+
+def main_dump(x):
+	config_dir = IPOL_CONFIG
+	config_x = "%s/idl/%s" % (config_dir, x)
+	p = ipol_parse_idl(config_x)
+	print(p)
+	return 0
+
+def main_info(x):
+	config_dir = IPOL_CONFIG
+	config_x = "%s/idl/%s" % (config_dir, x)
+	p = ipol_parse_idl(config_x)
+	print("NAME:\t\"%s\" %s" % (p["info"]["name"], p["info"]["longname"]))
+	print("INPUT:", end="")
+	for k,v in p['input'].items():
+		print("\t%s = %s" % (k,v))
+	print("OUTPUT:", end="")
+	for k,v in p['output'].items():
+		print("\t%s = %s" % (k,v))
+	print("RAW:", end="")
+	for l in p['run']:
+		print("\t%s" % l)
+	print("USAGE:\t%s" % p["info"]["name"], end="")
+	for k,v in p['input'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			print(" %s" % k, end="")
+		else:
+			print(" [%s=%s]" % (k,b), end="")
+	for k,v in p['output'].items():
+		a,_,b = tuple(x.strip() for x in v.partition(":"))
+		if len(b) == 0:
+			print(" %s" % k, end="")
+		else:
+			print(" [%s]" % k, end="")
+	print("")
+	return 0
+
+def main():
+	if len(sys.argv) < 2 or sys.argv[1] == "list":
+		return main_list()
+	if sys.argv[1] == "status":
+		return main_status()
+	if sys.argv[1] == "dump":
+		return main_dump(sys.argv[2]) if len(sys.argv) == 3 else 1
+	if sys.argv[1] == "info":
+		return main_info(sys.argv[2]) if len(sys.argv) == 3 else 1
+	if len(sys.argv) == 2:
+		return main_info(sys.argv[1])
+	return main_article(sys.argv[1:])
+
+if __name__ == '__main__':
+	sys.dont_write_bytecode = True
+	sys.exit(main())
+
+# vim: sw=8 ts=8 sts=0 noexpandtab:

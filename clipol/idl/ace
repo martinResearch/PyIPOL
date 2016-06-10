@@ -1,0 +1,27 @@
+[info]
+name = ace
+longname = Automatic Color Enhancement
+authors = Pascal Getreuer
+src = http://www.ipol.im/pub/art/2012/g-ace/ace_20121029.tar.gz
+
+[input]
+in = image
+alpha = number : 5
+omega = string : 1/r
+method = string : interp:5
+
+[output]
+out = image
+
+[build]
+make -f makefile.gcc
+cp ace $BIN
+
+[build:OpenBSD]
+sed -i~ 85d acecli.c
+sed -i~ 1317d imageio.c
+gmake -f makefile.gcc OPENMP="" CFLAGS="-std=c99 -O3"
+cp ace $BIN
+
+[run]
+ace -a $alpha -w $omega -m $method $in $out
