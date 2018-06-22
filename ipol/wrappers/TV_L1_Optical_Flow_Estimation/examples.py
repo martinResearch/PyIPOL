@@ -1,5 +1,5 @@
 
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import ipol.wrappers.TV_L1_Optical_Flow_Estimation as wrapper
 

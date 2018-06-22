@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.ASIFT_An_Algorithm_for_Fully_Affine_Invariant_Comparison as wrapper
 import matplotlib.pyplot as plt
 from matplotlib.patches import ConnectionPatch

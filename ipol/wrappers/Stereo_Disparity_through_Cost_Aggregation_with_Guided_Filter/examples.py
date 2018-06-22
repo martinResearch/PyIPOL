@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.Stereo_Disparity_through_Cost_Aggregation_with_Guided_Filter as wrapper
 import matplotlib.pyplot as plt
 import os

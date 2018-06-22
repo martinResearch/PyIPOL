@@ -3,7 +3,7 @@
 
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
@@ -64,7 +64,7 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    tmp_folder=tempfile.mkdtemp()
    
    # todo : save the input images 
-   imsave(os.path.join(tmp_folder,'input.png'),image)  
+   imwrite(os.path.join(tmp_folder,'input.png'),image)  
 
   
    # todo : generate the command to execute the executable with the right options

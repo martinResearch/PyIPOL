@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 import glob
@@ -36,9 +36,9 @@ def inpaint(image,mask,method='nlmeans',patch=9,iters=300,scales=7,coarse=0.3,co
    #saving input image to a temporary file
    output_file=tempfile.mkstemp('.PNG' )[1]  
    image_file =tempfile.mkstemp('.PNG')[1]
-   imsave(image_file,image)
+   imwrite(image_file,image)
    mask_file =tempfile.mkstemp('.PNG')[1]
-   imsave(mask_file,mask)
+   imwrite(mask_file,mask)
 
    command=exec_folder+'/build/Inpainting %s %s %s'%(image_file,mask_file,output_file)
    command+=' -method %s'%method

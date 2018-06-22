@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.new_wrappers.new_paper_example as wrapper
 import matplotlib.pyplot as plt
 

@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
@@ -26,7 +26,7 @@ def extract_surf(image):# todo change the name of the function
  
    # save input images 
    tmp_folder=tempfile.mkdtemp()
-   imsave(os.path.join(tmp_folder,'image.png'),image)
+   imwrite(os.path.join(tmp_folder,'image.png'),image)
   
 
    command='cd %s'%tmp_folder+';'# moving in the temporary folder

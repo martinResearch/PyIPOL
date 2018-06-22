@@ -1,5 +1,5 @@
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import ipol.wrappers.Total_Variation_Deconvolution_using_Split_Bregman as wrapper
 

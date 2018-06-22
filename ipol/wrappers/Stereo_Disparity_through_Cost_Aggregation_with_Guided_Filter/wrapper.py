@@ -3,7 +3,7 @@
 
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
@@ -68,8 +68,8 @@ def stereoGuidedFilter(image1,image2,dmin,dmax,R=9,A=0.9,E=6.5025,C=7,G=2,o=0,O=
    tmp_folder=tempfile.mkdtemp()
    
    # todo : save the input images 
-   imsave(os.path.join(tmp_folder,'image1.png'),image1)  
-   imsave(os.path.join(tmp_folder,'image2.png'),image2) 
+   imwrite(os.path.join(tmp_folder,'image1.png'),image1)  
+   imwrite(os.path.join(tmp_folder,'image2.png'),image2) 
   
    # todo : generate the command to execute the executable with the right options
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 import numpy as np
@@ -35,8 +35,8 @@ def tvl1flow(image1,image2,NPROCS=0,TAU=0.25,LAMBDA=0.15,THETA=0.3,NSCALES=5,ZOO
    temp_image1_file =tempfile.mkstemp('.PNG')[1]
    temp_image2_file =tempfile.mkstemp('.PNG')[1]
    output_file=tempfile.mkstemp('.flo')[1]
-   imsave(temp_image1_file,image1)
-   imsave(temp_image2_file,image2)
+   imwrite(temp_image1_file,image1)
+   imwrite(temp_image2_file,image2)
    
    command=exec_folder+'/tvl1flow %s %s %s %d %f %f %f %d %f %d %f %d'%(temp_image1_file,temp_image2_file,output_file,NPROCS,TAU,LAMBDA,THETA,NSCALES,ZOOM,NWARPS,EPSILON,VERBOSE)
       

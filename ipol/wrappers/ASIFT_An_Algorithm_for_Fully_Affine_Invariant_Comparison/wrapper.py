@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
@@ -40,8 +40,8 @@ def asift(image1,image2,resize_input=0):# todo change the name of the function
  
    # save input images 
    tmp_folder=tempfile.mkdtemp()
-   imsave(os.path.join(tmp_folder,'imgIn1.png'),image1)
-   imsave(os.path.join(tmp_folder,'imgIn2.png'),image2)
+   imwrite(os.path.join(tmp_folder,'imgIn1.png'),image1)
+   imwrite(os.path.join(tmp_folder,'imgIn2.png'),image2)
 
    command='cd %s'%tmp_folder+';'# moving in the temporary folder
    command+=source_directory+'/demo_ASIFT imgIn1.png imgIn2.png imgOutVert.png imgOutHori.png matchings.txt keys1.txt keys2.txt %d'%resize_input

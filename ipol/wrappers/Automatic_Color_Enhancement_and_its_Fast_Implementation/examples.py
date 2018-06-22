@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.Automatic_Color_Enhancement_and_its_Fast_Implementation as wrapper
 import matplotlib.pyplot as plt
 

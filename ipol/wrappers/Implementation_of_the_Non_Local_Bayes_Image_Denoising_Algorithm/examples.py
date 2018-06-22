@@ -1,5 +1,5 @@
 
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 import ipol.wrappers.Implementation_of_the_Non_Local_Bayes_Image_Denoising_Algorithm as wrapper

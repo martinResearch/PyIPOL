@@ -3,7 +3,7 @@
 
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 from skimage.io import imread as skimage_imread
 import ipol.tools as tools
 import subprocess
@@ -60,7 +60,7 @@ def temporal( Images,  alpha=18, gamma=1, nscales=100, zoom_factor=0.75, TOL=0.0
    for i,image in enumerate(Images):	
       assert(np.all(image.shape==size))
       filename='input%d.png'%i
-      imsave(os.path.join(tmp_folder,filename),image)
+      imwrite(os.path.join(tmp_folder,filename),image)
       listfiles.append(filename)	  
    listfilestr=' '.join(listfiles)
   
@@ -119,8 +119,8 @@ def spatial( image1,image2, processors=1, alpha=18, gamma=1, nscales=100, zoom_f
    
    # todo : save the input images 
 
-   imsave(os.path.join(tmp_folder,'image1.png'),image1)
-   imsave(os.path.join(tmp_folder,'image2.png'),image2)
+   imwrite(os.path.join(tmp_folder,'image1.png'),image1)
+   imwrite(os.path.join(tmp_folder,'image2.png'),image2)
 
    command='cd %s'%tmp_folder+';'# moving in the temporary folder
    command+=os.path.join(binary_directory1,'main ')+' image1.png image2.png flow.uv %f %f %d %f %f %d %d %s %d'%(\

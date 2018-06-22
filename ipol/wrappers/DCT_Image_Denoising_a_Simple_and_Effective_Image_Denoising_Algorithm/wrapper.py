@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 
@@ -27,11 +27,11 @@ def DCTdenoising(image,sigma,noise_free=None):
    output_file=tempfile.mkstemp('.PNG')[1]
    
    temp_image_file =tempfile.mkstemp('.PNG')[1]
-   imsave(temp_image_file,image)
+   imwrite(temp_image_file,image)
    
    if not noise_free is None:
       temp_noise_free_image_file =tempfile.mkstemp('.PNG')[1]
-      imsave(temp_noise_free_image_file,noise_free)
+      imwrite(temp_noise_free_image_file,noise_free)
    else:
       temp_noise_free_image_file=temp_image_file
    #./demo_DCTdenoising cinput.png 10 ImNoisy.png ImDenoised.png ImDiff.png

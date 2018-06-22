@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 
@@ -48,7 +48,7 @@ def tvdenoise(image,model,sigma):
    output_file=tempfile.mkstemp('.PNG')[1]
    
    temp_image_file =tempfile.mkstemp('.PNG')[1]
-   imsave(temp_image_file,image)
+   imwrite(temp_image_file,image)
    assert(model in ['gaussian','laplace','poisson'])
   
    
@@ -75,7 +75,7 @@ The <model>:<sigma> argument has the same meaning as in tvdenoise.
    output_file=tempfile.mkstemp('.PNG')[1]
    
    temp_image_file =tempfile.mkstemp('.PNG')[1]
-   imsave(temp_image_file,image)
+   imwrite(temp_image_file,image)
    assert(model in ['gaussian','laplace','poisson'])
   
    

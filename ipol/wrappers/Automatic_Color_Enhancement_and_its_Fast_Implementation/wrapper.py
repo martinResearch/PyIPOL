@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 
@@ -39,7 +39,7 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
    output_file=tempfile.mkstemp('.PNG')[1]
    
    temp_image_file =tempfile.mkstemp('.PNG')[1]
-   imsave(temp_image_file,image)
+   imwrite(temp_image_file,image)
 
 
    if method=='interp':

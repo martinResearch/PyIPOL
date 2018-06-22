@@ -1,6 +1,6 @@
 import tempfile   
 import os
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.tools as tools
 import subprocess
 import ipol.wrappers.Rudin_Osher_Fatemi_Total_Variation_Denoising_using_Split_Bregman as wrapper

@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.An_Analysis_of_the_SURF_Method as wrapper
 import matplotlib.pyplot as plt
 import numpy as np 

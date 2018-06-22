@@ -46,6 +46,7 @@ before_install:
   - pip install cython==0.25.2
   - pip install pillow
   - pip install numpy
+  - pip install scipy
 
 
 script:

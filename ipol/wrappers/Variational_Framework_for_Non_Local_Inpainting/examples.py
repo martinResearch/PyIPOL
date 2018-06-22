@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.Variational_Framework_for_Non_Local_Inpainting as wrapper
 def example():
    
