@@ -1,0 +1,50 @@
+env:
+  global:
+    - SHARED=OFF
+
+matrix:
+
+  notifications:
+    email: true 
+
+  include:
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      language: python
+      python: "3.6"
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
+            - cmake-data # to use cmake 3.0 or more recent
+            - cmake
+
+
+    - os: osx
+      osx_image: xcode8.3
+
+before_install:
+  # ISSUE: we may want to use '/scripts/install-deps-ubuntu.sh' in the future.
+  # At this moment, travis-ci supports up to ubuntu 14.04 and this environment
+  # does not recognize sudo apt-get install libglfw3-dev
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+
+    fi
+  # scripts/install-deps-osx.sh works well
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
+      brew install python;
+    fi
+
+  # for reference, display cmake and python version
+  - python -V
+  - cmake --version
+  # - pip install numpy
+
+script:
+  # Build commands
+  - python setup.py build_ext --inplace
