@@ -42,7 +42,12 @@ before_install:
   - python -V
   - cmake --version
   # - pip install numpy
+  - pip install --upgrade pip
+  - pip install cython==0.25.2
+  - pip install numpy
+
 
 script:
   # Build commands
   - python setup.py build_ext --inplace
+  - python setup.py install
