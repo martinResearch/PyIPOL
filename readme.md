@@ -6,7 +6,11 @@ IPOL is a great source of state-of-art algorithms in the domain of image process
 
 The goal of the project **is not** to re-implement algorithm from IPOL in Python or Cython, but only to create interfaces with minimal modification of the original C++ code. 
 The C++ code is not stored in this repository but downloaded during the installation and potential modifications on the C++ code are saved as patches. 
- 
+
+# Build and test status
+Linux , mac Osx:
+
+[![Build Status](https://travis-ci.org/martinResearch/PyIPOL.svg?branch=master)](https://travis-ci.org/martinResearch/PyIPOL)
 # Installation
 
 ## Linux

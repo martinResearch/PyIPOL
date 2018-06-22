@@ -32,9 +32,7 @@ before_install:
   # ISSUE: we may want to use '/scripts/install-deps-ubuntu.sh' in the future.
   # At this moment, travis-ci supports up to ubuntu 14.04 and this environment
   # does not recognize sudo apt-get install libglfw3-dev
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
 
-    fi
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       brew install python;
