@@ -22,6 +22,24 @@ local installation
 	unzip master.zip 
 	cd PyIPOL-master
 	python setup.py build_ext --inplace
+	
+Installing only a subset of the papers:
+
+* download the zip file
+
+		wget https://github.com/martinResearch/PyIPOL/archive/master.zip --no-check-certificate
+		unzip master.zip 
+		cd PyIPOL-master
+	
+* remove from the subfolder ipol/wrappers all the papers you do not want to keep
+		
+* install using 
+	
+		sudo python setup.py install
+		
+
+	
+	
 ## Windows
 
 **the installation functions need to be modified to work on windows**

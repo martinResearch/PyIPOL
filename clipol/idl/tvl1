@@ -1,0 +1,22 @@
+[info]
+name = tvl1
+longname = TVL1 Optical Flow
+src = http://www.ipol.im/pub/art/2013/26/tvl1flow_3.tar.gz
+
+[input]
+a = image
+b = image
+
+[output]
+out = image
+
+[build]
+make
+cp tvl1flow $BIN
+
+[build:OpenBSD]
+make CC="cc -std=c99" OMPFLAGS="-DDISABLE_OMP"
+cp tvl1flow $BIN
+
+[run]
+tvl1flow $a $b $out
