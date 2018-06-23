@@ -16,8 +16,7 @@ def _install():
    download_file='http://www.ipol.im/pub/art/2011/ys-dct/src_demoDCTdenoising.tar.gz'
    tools.download_and_extract(download_file)  
    # getting example images
-   tools.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cinput.jpg',os.path.join(exec_folder,'cinput.jpg'))
-   tools.urlretrieve('http://www.ipol.im/pub/art/2011/bcm_nlm/cnoisy.jpg',os.path.join(exec_folder,'cnoisy.jpg'))
+
    
    subprocess.call('make OMP=1', shell=True,cwd=exec_folder)   
    
