@@ -30,7 +30,7 @@ def example():
    plt.draw()
    plt.show()
 
-   print 'done' 
+   print ('done' )
 
 
 if __name__ == '__main__':

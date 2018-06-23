@@ -23,7 +23,7 @@ def example():
    plt.subplot(2,2,4)   
    plt.imshow(np.abs(output.astype(np.float)-noise_free.astype(np.float))/5 ,cmap='Greys_r')    
    plt.show()
-   print 'done' 
+   print ('done') 
    
 if __name__ == '__main__':
    import sys 

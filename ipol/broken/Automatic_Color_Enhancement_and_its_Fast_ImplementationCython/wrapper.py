@@ -60,7 +60,7 @@ def ace(image,alpha,omega,sigma=None,method='interp',levels=None,degree=None,jpe
       # calling the executable
       os.system( command)
    else:
-      print options.split(' ')
+      print (options.split(' '))
       _wrapper.main(options.split(' '))
    #reading the output from the temporary file
    output=imread(output_file)  

@@ -20,7 +20,7 @@ def example():
    plt.ioff()
    plt.imshow(output, cmap='Greys_r')
    plt.show()
-   print 'done' 
+   print ('done') 
 
 if __name__ == '__main__':
    example()

@@ -14,7 +14,7 @@ def example():
   
 
    output=wrapper.stereoGuidedFilter(image1,image2,dmin=-15,dmax=0)
-   print 'found disparities :'
+   print ('found disparities :')
    v,c=np.unique(output['disparity'],return_counts=True)
    plt.plot(v,c)
    plt.title('nb pixel per disparity')
@@ -29,7 +29,7 @@ def example():
    plt.subplot(2,2,4)   
    plt.imshow(output['occlusion_filled_smoothed'].astype(np.float),cmap='Greys_r')
    plt.show()
-   print 'done' 
+   print ('done' )
 
 if __name__ == '__main__':
 

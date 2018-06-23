@@ -21,7 +21,7 @@ def example():
    plt.subplot(2,2,4)   
    plt.imshow(flow[:,:,1])    
    plt.show()
-   print 'done' 
+   print ('done') 
    
    
 if __name__ == '__main__':

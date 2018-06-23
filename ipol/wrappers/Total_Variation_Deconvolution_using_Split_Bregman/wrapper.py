@@ -61,7 +61,7 @@ def tvdeconv(image,kernel,radius=None,sigma_kernel=None,lamb=50,noise='gaussian'
    #subprocess.call( command ,shell=True)
    p = Popen(command, stdout = PIPE, stderr = PIPE,bufsize=1,shell=True)
    for line in iter(p.stdout.readline, ''):
-      print line
+      print (line)
    p.stdout.close()   
    p.wait()
    #reading the output from the temporary file
@@ -119,7 +119,7 @@ def imblur(image,kernel,radius=None,sigma_kernel=None,noise='gaussian',sigma=2,j
    #subprocess.call( command ,shell=True)
    p = Popen(command, stdout = PIPE, stderr = PIPE,bufsize=1,shell=True)
    for line in iter(p.stdout.readline, ''):
-      print line
+      print (line)
    p.stdout.close()   
    p.wait()
    #reading the output from the temporary file

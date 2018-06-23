@@ -19,7 +19,7 @@ def example():
    plt.subplot(1,2,2)   
    plt.imshow(output)
    plt.show()
-   print 'done' 
+   print ('done' )
 
 
 if __name__ == '__main__':

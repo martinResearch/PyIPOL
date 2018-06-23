@@ -16,7 +16,7 @@ def example():
    plt.subplot(1,3,3)
    plt.imshow(output)
    plt.show()
-   print 'done' 
+   print ('done') 
    
 if __name__ == '__main__':
    #_install()

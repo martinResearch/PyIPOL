@@ -56,7 +56,7 @@ def inpaint(image,mask,method='nlmeans',patch=9,iters=300,scales=7,coarse=0.3,co
    #subprocess.call( command ,shell=True)
    p = Popen(command, stdout = PIPE, stderr = PIPE,bufsize=1,shell=True)
    for line in iter(p.stdout.readline, ''):
-      print line
+      print (line)
    p.stdout.close()   
    p.wait()
    #reading the output from the temporary file
