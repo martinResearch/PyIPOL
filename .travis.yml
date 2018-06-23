@@ -47,7 +47,7 @@ before_install:
   - pip install pillow
   - pip install numpy
   - pip install scipy
-  _ pip install imageio
+  - pip install imageio
 
 
 script:
