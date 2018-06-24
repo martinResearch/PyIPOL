@@ -31,8 +31,9 @@ install:
 before_build:
 - set Path=c:\MinGW\bin;%Path%
 - dir c:\MinGW\bin
+- copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe
 - g++ --version
-- mingw32-make --version
+- make --version
 - cmake --version
 
 build_script:
