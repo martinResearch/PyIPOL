@@ -27,7 +27,13 @@ install:
   - conda install -y -q matplotlib
   - pip install pillow
   - pip install imageio
-
+  
+before_build:
+- set Path=c:\MinGW\bin;%Path%
+- dir c:\MinGW\bin
+- g++ --version
+- mingw32-make --version
+- cmake --version
 
 build_script:
 
