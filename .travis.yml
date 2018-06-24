@@ -36,6 +36,7 @@ before_install:
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
       brew upgrade python;
+      sudo easy_install pip
     fi
 
   # for reference, display cmake and python version
