@@ -6,7 +6,7 @@ print (path)
 import ipol
 print (ipol.path)
 if ipol.path!=os.path.join(path,'ipol'):
-	print 'you are not running the local version of ipol, this is not expected'
+	print ('you are not running the local version of ipol, this is not expected')
 	raise
 
 

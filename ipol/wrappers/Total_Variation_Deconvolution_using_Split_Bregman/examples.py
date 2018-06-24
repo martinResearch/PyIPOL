@@ -18,7 +18,7 @@ def example():
    plt.subplot(1,3,3)
    plt.imshow(deconv, cmap='Greys_r')
    plt.show()
-   print 'done' 
+   print ('done') 
    
 if __name__ == '__main__':
    example()
