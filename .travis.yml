@@ -35,20 +35,19 @@ before_install:
 
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      brew upgrade python;
-      sudo easy_install pip;
+      brew upgrade python;  
     fi
 
   # for reference, display cmake and python version
   - python -V
   - cmake --version
   # - pip install numpy
-  - pip install --upgrade pip
-  - pip install cython==0.25.2
-  - pip install pillow
-  - pip install numpy
-  - pip install scipy
-  - pip install imageio
+  - pip3 install --upgrade pip
+  - pip3 install cython==0.25.2
+  - pip3 install pillow
+  - pip3 install numpy
+  - pip3 install scipy
+  - pip3 install imageio
 
 
 script:

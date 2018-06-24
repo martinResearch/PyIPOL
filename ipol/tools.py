@@ -84,7 +84,7 @@ def _list_wrappers_paths(path=None):
 	
 	
 def _install(filename):
-	
+		print('installing %s'%filename)
 		if os.path.isfile(os.path.join(filename,'setup.py')):#cython binding
 			os.system('cd %s;python setup.py build_ext --inplace'%filename)
 			#execfile(' %s/setup.py '%filename,[build_ext --inplace])
