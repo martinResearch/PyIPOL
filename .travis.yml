@@ -35,14 +35,14 @@ before_install:
 
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      brew upgrade python;  
+      brew upgrade python; 
+      
     fi
 
   # for reference, display cmake and python version
   - python -V
   - cmake --version
   # - pip install numpy
-  - pip3 install --upgrade pip
   - pip3 install cython==0.25.2
   - pip3 install pillow
   - pip3 install numpy
