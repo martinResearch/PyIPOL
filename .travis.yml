@@ -33,14 +33,13 @@ before_install:
   # At this moment, travis-ci supports up to ubuntu 14.04 and this environment
   # does not recognize sudo apt-get install libglfw3-dev
   
-  - if [ ( "$TRAVIS_OS_NAME" == "linux" ) ]; then     
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then  
       sudo apt-get install fftw3 fftw3-dev pkg-config;   
     fi
 
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-      brew upgrade python; 
-      
+      brew upgrade python;     
     fi
 
   # for reference, display cmake and python version
