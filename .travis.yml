@@ -48,6 +48,7 @@ before_install:
   - pip3 install numpy
   - pip3 install scipy
   - pip3 install imageio
+  - sudo apt-get install fftw3 fftw3-dev pkg-config
 
 
 script:
