@@ -34,7 +34,7 @@ before_install:
   # does not recognize sudo apt-get install libglfw3-dev
   
   - if [ ( "$TRAVIS_OS_NAME" == "linux" ) ]; then     
-      sudo apt-get install fftw3 fftw3-dev pkg-config   
+      sudo apt-get install fftw3 fftw3-dev pkg-config;   
     fi
 
   # scripts/install-deps-osx.sh works well
