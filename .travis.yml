@@ -32,6 +32,10 @@ before_install:
   # ISSUE: we may want to use '/scripts/install-deps-ubuntu.sh' in the future.
   # At this moment, travis-ci supports up to ubuntu 14.04 and this environment
   # does not recognize sudo apt-get install libglfw3-dev
+  
+  - if [ ( "$TRAVIS_OS_NAME" == "linux" ) ]; then     
+      sudo apt-get install fftw3 fftw3-dev pkg-config   
+    fi
 
   # scripts/install-deps-osx.sh works well
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then
@@ -48,7 +52,7 @@ before_install:
   - pip3 install numpy
   - pip3 install scipy
   - pip3 install imageio
-  - sudo apt-get install fftw3 fftw3-dev pkg-config
+
 
 
 script:
