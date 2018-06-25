@@ -1,4 +1,4 @@
-from scipy.misc import imsave,imread
+from imageio import imwrite,imread
 import ipol.wrappers.Robust_Optical_Flow_Estimation as wrapper
 import matplotlib.pyplot as plt
 
@@ -10,7 +10,8 @@ def example():
    import numpy as np
    
    image1=imread(wrapper.source_directory+'/spatial/I1.png')
-   image2=imread(wrapper.source_directory+'/spatial/I2.png')
+
+ 
    
    flow=wrapper.spatial(image1,image2)
    plt.subplot(2,2,1)   
@@ -38,7 +39,7 @@ def example():
    plt.show()
    
    
-   print 'done' 
+   print ('done') 
    
    
 if __name__ == '__main__':
