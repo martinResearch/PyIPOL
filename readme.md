@@ -8,9 +8,13 @@ The goal of the project **is not** to re-implement algorithm from IPOL in Python
 The C++ code is not stored in this repository but downloaded during the installation and potential modifications on the C++ code are saved as patches. 
 
 # Build and test status
-Linux , mac Osx:
+Linux , mac Osx (on Travis):
 
 [![Build Status](https://travis-ci.org/martinResearch/PyIPOL.svg?branch=master)](https://travis-ci.org/martinResearch/PyIPOL)
+
+Windows (on Appveyor):
+[![Build status](https://ci.appveyor.com/api/projects/status/xuc8g3lcwv14lv00?svg=true)](https://ci.appveyor.com/project/martinResearch/pyipol)
+
 # Installation
 
 ## Linux
