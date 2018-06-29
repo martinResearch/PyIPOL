@@ -1,0 +1,80 @@
+# GCC makefile for Chan-Vese segmentation IPOL demo
+# Pascal Getreuer
+# June 17, 2012
+
+# The following three statements determine the build configuration.
+# For handling different image formats, the program can be linked with
+# the libjpeg, libpng, and libtiff libraries.  For each library, set
+# the flags needed for linking.  To disable use of a library, comment
+# its statement.  You can disable all three (BMP is always supported).
+#LDLIBJPEG=-ljpeg
+#LDLIBPNG=-lpng -lz
+#LDLIBTIFF=-ltiff
+
+# Uncomment this line to perform computations in single precision
+# instead of double precision.
+NUM_SINGLE = -DNUM_SINGLE
+
+##
+# Standard make settings
+CFLAGS=-O3 -ansi -pedantic -Wall -Wextra $(NUM_SINGLE)
+LDFLAGS=
+LDLIB=-lm $(LDLIBFFTW3) $(LDLIBJPEG) $(LDLIBPNG) $(LDLIBTIFF)
+
+CHANVESE_SOURCES=chanvesecli.c chanvese.c cliio.c \
+imageio.c basic.c gifwrite.c rgb2ind.c
+
+ARCHIVENAME=chanvese_$(shell date -u +%Y%m%d)
+SOURCES=chanvesecli.c chanvese.c chanvese.h cliio.c cliio.h \
+imageio.c imageio.h gifwrite.c gifwrite.h rgb2ind.c rgb2ind.h \
+basic.c basic.h num.h makefile.gcc makefile.vc readme.txt license.txt \
+doxygen.conf wrench.bmp example.sh
+
+## 
+# These statements add compiler flags to define USE_LIBJPEG, etc.,
+# depending on which libraries have been specified above.
+ifneq ($(LDLIBJPEG),)
+	CJPEG=-DUSE_LIBJPEG
+endif
+ifneq ($(LDLIBPNG),)
+	CPNG=-DUSE_LIBPNG
+endif
+ifneq ($(LDLIBTIFF),)
+	CTIFF=-DUSE_LIBTIFF
+endif
+
+ALLCFLAGS=$(CFLAGS) $(CJPEG) $(CPNG) $(CTIFF)
+CHANVESE_OBJECTS=$(CHANVESE_SOURCES:.c=.o)
+.SUFFIXES: .c .o
+.PHONY: all clean rebuild srcdoc dist dist-zip
+
+all: chanvese
+
+chanvese: $(CHANVESE_OBJECTS)
+	$(CC) $(LDFLAGS) $(CHANVESE_OBJECTS) $(LDLIB) -o $@
+
+.c.o:
+	$(CC) -c $(ALLCFLAGS) $< -o $@
+
+clean:
+	$(RM) $(CHANVESE_OBJECTS) chanvese
+
+rebuild: clean all
+
+srcdoc:
+	doxygen doxygen.conf
+
+dist: $(SOURCES)
+	-rm -rf $(ARCHIVENAME)
+	mkdir $(ARCHIVENAME)
+	ln $(SOURCES) $(ARCHIVENAME)
+	tar vchzf $(ARCHIVENAME).tar.gz $(ARCHIVENAME)
+	-rm -rf $(ARCHIVENAME)
+
+dist-zip: $(SOURCES)
+	-rm -rf $(ARCHIVENAME)
+	mkdir $(ARCHIVENAME)
+	ln $(SOURCES) $(ARCHIVENAME)
+	-rm -f $(ARCHIVENAME).zip
+	zip -r9 $(ARCHIVENAME).zip $(ARCHIVENAME)/*
+	-rm -rf $(ARCHIVENAME)
