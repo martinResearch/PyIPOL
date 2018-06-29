@@ -13,6 +13,7 @@ Linux , mac Osx (on Travis):
 [![Build Status](https://travis-ci.org/martinResearch/PyIPOL.svg?branch=master)](https://travis-ci.org/martinResearch/PyIPOL)
 
 Windows (on Appveyor):
+
 [![Build status](https://ci.appveyor.com/api/projects/status/xuc8g3lcwv14lv00?svg=true)](https://ci.appveyor.com/project/martinResearch/pyipol)
 
 # Installation
