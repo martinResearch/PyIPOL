@@ -221,9 +221,10 @@ follow the same methodology as in the previous section, but copy one of the exis
 
 
 ## TODOS
-
+* generate a python wheel for windows throught the appveyor and save it in appveyor artifacts, so that a precompiled pyipol can easily be installed using pip
+*  generate a python wheel for linux throught travis and upload it in the github repo (see https://stackoverflow.com/questions/12343452/how-to-publish-artifacts-in-travis-ci)
 * improve the module initialization files to get a better autocompletion in wingide or ipython
-* make it work on windows
+* make it work on windows 
 * test it on mac OS
 
 
