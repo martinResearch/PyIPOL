@@ -3,6 +3,8 @@ import os
 from imageio import imwrite,imread
 import tools
 import subprocess
+import platform
+from shutil import copy
 
 string="""Chan-Vese Segmentation 
 Pascal Getreuer
