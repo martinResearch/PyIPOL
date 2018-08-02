@@ -98,7 +98,8 @@ def _install(filename):
 
 def _install_all(path=None):
 	"""download and compile code for all the wrappers"""
-	print('coucou')
+	print('------------------------------------------------')
+	print(' download and compile code for all the wrappers')
 	l=_list_wrappers_paths(path)
 	import sys 
 	import imp
@@ -106,5 +107,4 @@ def _install_all(path=None):
 	for filename in l:
 		_install(filename)
 		
-
 
