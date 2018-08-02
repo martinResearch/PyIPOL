@@ -22,7 +22,7 @@ def download_and_extract(f,subfolder=''):
 
 
 	local_filename, headers = urlretrieve(f)
-	print("decompressin the zip file %s"%local_filename)
+	print("decompressing the zip file %s..."%local_filename ,end='')
 	if not os.path.isdir(extraction_directory):
 		os.mkdir(extraction_directory)
 	if f[-3:]=='zip':
