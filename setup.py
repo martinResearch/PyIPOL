@@ -26,6 +26,7 @@ files_to_copy=[]
 for path in paths:
 	for (dir, _, files) in os.walk(path):
 		for f in files:
+			pass
 			files_to_copy.append(os.path.join(dir[len('ipol')+1:], f))
 print('found %d file to copy'%len(files_to_copy))
 
