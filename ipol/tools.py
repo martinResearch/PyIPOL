@@ -5,7 +5,7 @@ import zipfile
 import tarfile
 from PIL import Image
 import numpy as np
-
+import subprocess
 import sys
 
 if sys.version_info[0] == 2:
@@ -85,7 +85,8 @@ def _list_wrappers_paths(path=None):
 def _install(filename):
 		print('installing %s'%filename)
 		if os.path.isfile(os.path.join(filename,'setup.py')):#cython binding
-			os.system('cd %s;python setup.py build_ext --inplace'%filename)
+			subprocess.call('python setup.py build_ext --inplace',shell=True,pwd=filename)
+			#os.system('cd %s;python setup.py build_ext --inplace'%filename)
 			#execfile(' %s/setup.py '%filename,[build_ext --inplace])
 		else:	
 			filew=os.path.join(filename,'install.py')
@@ -107,3 +108,4 @@ def _install_all(path=None):
 		_install(filename)
 		
 
+subprocess
