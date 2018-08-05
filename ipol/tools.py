@@ -101,6 +101,7 @@ def _install_all(path=None):
 	"""download and compile code for all the wrappers"""
 	print('------------------------------------------------')
 	print(' download and compile code for all the wrappers')
+	return
 	l=_list_wrappers_paths(path)
 	import sys 
 	import imp
