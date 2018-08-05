@@ -18,7 +18,7 @@ __version_str__ = runpy.run_path("ipol/version.py")["__version_str__"]
 import sys
 sys.path.append("./ipol")
 from tools import _install_all
-#_install_all()
+_install_all()
 
 import os
 paths=['ipol/csources','ipol/examples','ipol/wrappers']
